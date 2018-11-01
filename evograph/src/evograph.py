@@ -57,12 +57,21 @@ def evograph():
     graph, numberInitialEdges = edgesFromFile('../data/sf=1.txt')
     kScalar = 2
     upscaledGraph = {}
-    
-    for y in range(numberInitialEdges, ((kScalar * numberInitialEdges) - 1)):
-        ey = graph['e'+y]
-        upscaledGraph['e' + y] = DETERMINE(graph, numberInitialEdges, graph['e' + y])
-    
-    print upscaledGraph
+    print graph
+    for y in range(numberInitialEdges, (kScalar * numberInitialEdges)):
+        graph['e'+str(y)] = DETERMINE(graph, numberInitialEdges, y, kScalar)
+    #    upscaledGraph['e' + str(y)] = DETERMINE(graph, numberInitialEdges, graph['e' + y])
+        print 'e'+str(y)
+        print graph['e'+str(y)]
+        
+        #=======================================================================
+        # with open('../data/sf=1.txt','a') as file:
+        #      graph['e']+str(y)
+        #      result = 
+        #      file.write(str)
+        #=======================================================================
+
+
     
 def edgesFromFile(inputFile):
     with open(inputFile) as f:
@@ -104,31 +113,60 @@ def H(key):
 #     (REFSF=k(vs),vt)
 # else:
 #     (vs,REFSF=k(vt))
-def DETERMINE(graph, numberInitialEdges, ey):
-    # x ~ U(0, (k-1)*|E|-1)
-    
-    x = h1(6, 2)
-    # direction ~ U(0,1)
-    direction = h2(6)
+#===============================================================================
 
+#===============================================================================
+# def DETERMINE(graph, numberInitialEdges, y, kScalar):
+#     x = h1(numberInitialEdges, kScalar)
+#     direction = h2(numberInitialEdges)
+#===============================================================================
+    
+    
+def DETERMINE(graph, numberInitialEdges, y, kScalar):
+    # x ~ U(0, (k-1)*|E|-1)
+    x = h1(numberInitialEdges, kScalar)
+    # direction ~ U(0,1)
+    direction = h2(numberInitialEdges)
+ 
+     
     vsvt = []
+    # if x < |E|:
     if x < numberInitialEdges:
-        vsvt = graph['e' + x]
+        # (vs,vt) = ex        
+        vsvt = graph['e' + str(x)]
     else:
-        vsvt = DETERMINE(graph, numberInitialEdges, graph['e'+x])
-    
-    
-    
+        # (vs,vt) = DETERMINE(ex)
+        vsvt = DETERMINE(graph, numberInitialEdges, y, graph['e'+str(x)])
+        return vsvt
+     
+    parentEdge = 'e' + str(x)
+    parentEdgeVertices = graph[parentEdge]
+    #print parentEdgeVertices
     refvsvt = []
+     
+ 
+    # if direction == 0
     if direction == 0:
-        refvsvt = [  ,  ]
-        return 
+        # (REFSF=k(vs), vt)
+        refvsvt = [ REFSF(parentEdgeVertices)[2] , parentEdgeVertices[1] ]
     else:
-        refvsvt = [  ,  ]
+        # (vs,REFSF=k(vt))        
+        refvsvt = [ parentEdgeVertices[0] , REFSF(parentEdgeVertices, 'secondIndex', numberInitialEdges-1) ]
+     
+    return refvsvt
+    
+def REFSF(parentEdgeVertices, location, numberInitialVertices):
+    refIs = 0
+    if location == 'secondIndex':
+        refIs = int(parentEdgeVertices[1])
+        return refIs + int(numberInitialVertices)
+    else:
+        refIs = int(parentEdgeVertices[0])
+        return refIs + int(numberInitialVertices)
+    return refIs
 
 if __name__ == '__main__':
     evograph() 
-    
     
     
     
