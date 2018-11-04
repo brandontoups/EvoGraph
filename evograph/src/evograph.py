@@ -4,19 +4,6 @@ Created on Oct 30, 2018
 @authors: Brandon Toups
 '''
 
-
-class EdgeInstance(object):
-    currentGraph = {}
-    currentNumEdges = 0
-    y = 0
-    x = 0
-    direction = 0
-    vs = 0
-    vt = 0
-    kScalar = 0
-
-
-
 # Algorithm 1 EvoGraph
 # Input G = (V, E) // original graph
 #       k // scale factor
@@ -57,6 +44,16 @@ class EdgeInstance(object):
 # thus e1 = (v0,v2) is picked as a parent edge and e6 is determined as (v0,REFSF=2(v2)) = (v0,v7)
 # 
 
+# Program Code 
+class EdgeInstance(object):
+    currentGraph = {}
+    currentNumEdges = 0
+    y = 0
+    x = 0
+    direction = 0
+    vs = 0
+    vt = 0
+    kScalar = 0
 
 # Algorithm 1 EvoGraph
 # Input G = (V, E) // original graph
@@ -67,12 +64,59 @@ class EdgeInstance(object):
 #     WRITE (vs , vt );
 def evograph():
     readGraph('../data/sf=1.txt')
-    EdgeInstance.kScalar = 2
+    EdgeInstance.kScalar = 3
+    # initialized to 6 to make sure there is 
     rangeEdges = EdgeInstance.currentNumEdges
     for y in range(EdgeInstance.currentNumEdges, (EdgeInstance.kScalar * rangeEdges)):
         readGraph('../data/sf=1.txt')
         DETERMINE(y)
         WRITE()
+        
+# DETERMINE(ey) :
+#     x ~ U(0, (k-1)*|E|-1)
+#     direction ~ U(0,1)
+# if x < |E|:
+#     (vs,vt) = ex
+# else:
+#     DETERMINE(ex)
+# 
+# if direction = 0
+#     (REFSF=k(vs),vt)
+# else:
+#     (vs,REFSF=k(vt))
+    
+def DETERMINE(y):
+    # x ~ U(0, (k-1)*|E|-1)
+    EdgeInstance.x = h1(y)
+    # direction ~ U(0,1)
+    EdgeInstance.direction = h2(y)
+    
+    print EdgeInstance.currentGraph
+    # if x < |E|:
+    if EdgeInstance.x < 6:
+        # (vs,vt) = ex        
+        EdgeInstance.vs = EdgeInstance.currentGraph['e' + str(EdgeInstance.x)][0]
+        EdgeInstance.vt = EdgeInstance.currentGraph['e' + str(EdgeInstance.x)][1]
+    else:
+        # (vs,vt) = DETERMINE(ex)\n\n\n'
+        print '\nRecursion Happening\n'
+        vsvt = DETERMINE(EdgeInstance.x)
+        EdgeInstance.vs = vsvt[0]
+        EdgeInstance.vt = vsvt[1]
+    
+    # if direction == 0
+    if EdgeInstance.direction == 0:
+        # (REFSF=k(vs), vt)
+        refvsvt = [ REFSF(1), EdgeInstance.vt ]
+    else:
+        # (vs,REFSF=k(vt))        
+        refvsvt = [ EdgeInstance.vs , REFSF(2) ]
+    
+    # WRITE() internal to DETERMINE
+    with open('../data/sf=1.txt','a') as file:
+        file.write( str(refvsvt[0]) + '\t' + str(refvsvt[1])  + '\t#e' + str(y) + '\n')
+    
+    return refvsvt
 
 def WRITE():
     print 'Writing...'
@@ -99,77 +143,24 @@ def readGraph(inputFile):
 def h1(key):
     return H(key) % ((EdgeInstance.kScalar-1) * 6)
     
+# h2(y) determines a direction of the edge ey (direction 0 means towards 
+# the inside of the graph, while direction 1 means towards the outside of graph.
+# Hash Function for U(0,1)
+# h2 : key -> [0,1]
 def h2(key):
     return H(key) % 2
 
 def H(key):
     return ((key + 13) * 7)
-    
 
-    
-# DETERMINE(ey) :
-#     x ~ U(0, (k-1)*|E|-1)
-#     direction ~ U(0,1)
-# if x < |E|:
-#     (vs,vt) = ex
-# else:
-#     DETERMINE(ex)
-# 
-# if direction = 0
-#     (REFSF=k(vs),vt)
-# else:
-#     (vs,REFSF=k(vt))
-#===============================================================================
-
-#===============================================================================
-# def DETERMINE(graph, numberInitialEdges, y, kScalar):
-#     x = h1(numberInitialEdges, kScalar)
-#     direction = h2(numberInitialEdges)
-#===============================================================================
-    
-    
-def DETERMINE(y):
-    # x ~ U(0, (k-1)*|E|-1)
-    EdgeInstance.x = h1(y)
-    # direction ~ U(0,1)
-    EdgeInstance.direction = h2(y)
-    
-    
-    print EdgeInstance.currentGraph
-    # if x < |E|:
-    if EdgeInstance.x < 6:
-        # (vs,vt) = ex        
-        EdgeInstance.vs = EdgeInstance.currentGraph['e' + str(EdgeInstance.x)][0]
-        EdgeInstance.vt = EdgeInstance.currentGraph['e' + str(EdgeInstance.x)][1]
-    else:
-        # (vs,vt) = DETERMINE(ex)\n\n\n'
-        print '\nhere\n'
-        vsvt = DETERMINE(EdgeInstance.x)
-        EdgeInstance.vs = vsvt[0]
-        EdgeInstance.vt = vsvt[1]
-    
- 
-    # if direction == 0
-    if EdgeInstance.direction == 0:
-        # (REFSF=k(vs), vt)
-        #refvsvt = [ REFSF(vsvt, 'firstIndex', numberInitialEdges) , vsvt[1] ]
-        refvsvt = [ REFSF(1), EdgeInstance.vt ]
-    else:
-        # (vs,REFSF=k(vt))        
-        refvsvt = [ EdgeInstance.vs , REFSF(2) ]
-    
-    with open('../data/sf=1.txt','a') as file:
-        file.write( str(refvsvt[0]) + '\t' + str(refvsvt[1])  + '\t#e' + str(y) + '\n')
-    return refvsvt
-    
 def REFSF(whichIndex):
     refIs = 0
     if whichIndex == 2:
         refIs = int(EdgeInstance.vt)
-        return refIs + int(6)
+        return refIs + int(5)
     else:
         refIs = int(EdgeInstance.vs)
-        return refIs + int(6)
+        return refIs + int(5)
     return refIs
 
 if __name__ == '__main__':
