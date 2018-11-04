@@ -68,8 +68,8 @@ class EdgeInstance(object):
 def evograph():
     readGraph('../data/sf=1.txt')
     EdgeInstance.kScalar = 2
-
-    for y in range(EdgeInstance.currentNumEdges, (EdgeInstance.kScalar * EdgeInstance.currentNumEdges)):
+    rangeEdges = EdgeInstance.currentNumEdges
+    for y in range(EdgeInstance.currentNumEdges, (EdgeInstance.kScalar * rangeEdges)):
         readGraph('../data/sf=1.txt')
         DETERMINE(y)
         WRITE()
@@ -78,6 +78,7 @@ def WRITE():
     print 'Writing...'
     
 def readGraph(inputFile):
+    print 'Reading...'
     with open(inputFile) as f:
         edges = {}
         lines = f.readlines()
@@ -96,7 +97,7 @@ def readGraph(inputFile):
 # Hash Function for U(0, (k-1)*|E|-1)
 # h1 :key->[0,...,(k-1)*|E|-1] 
 def h1(key):
-    return H(key) % ((EdgeInstance.kScalar-1) * EdgeInstance.currentNumEdges)
+    return H(key) % ((EdgeInstance.kScalar-1) * 6)
     
 def h2(key):
     return H(key) % 2
@@ -136,13 +137,14 @@ def DETERMINE(y):
     
     print EdgeInstance.currentGraph
     # if x < |E|:
-    if EdgeInstance.x < EdgeInstance.currentNumEdges:
+    if EdgeInstance.x < 6:
         # (vs,vt) = ex        
         EdgeInstance.vs = EdgeInstance.currentGraph['e' + str(EdgeInstance.x)][0]
         EdgeInstance.vt = EdgeInstance.currentGraph['e' + str(EdgeInstance.x)][1]
     else:
-        # (vs,vt) = DETERMINE(ex)
-        vsvt = DETERMINE(y)
+        # (vs,vt) = DETERMINE(ex)\n\n\n'
+        print '\nhere\n'
+        vsvt = DETERMINE(EdgeInstance.x)
         EdgeInstance.vs = vsvt[0]
         EdgeInstance.vt = vsvt[1]
     
@@ -156,18 +158,18 @@ def DETERMINE(y):
         # (vs,REFSF=k(vt))        
         refvsvt = [ EdgeInstance.vs , REFSF(2) ]
     
-    with open('../data/out.txt','a') as file:
-        file.write( str(refvsvt[0]) + '\t' + str(refvsvt[1])  + '\n')
+    with open('../data/sf=1.txt','a') as file:
+        file.write( str(refvsvt[0]) + '\t' + str(refvsvt[1])  + '\t#e' + str(y) + '\n')
     return refvsvt
     
 def REFSF(whichIndex):
     refIs = 0
     if whichIndex == 2:
         refIs = int(EdgeInstance.vt)
-        return refIs + int(EdgeInstance.currentNumEdges)
+        return refIs + int(6)
     else:
         refIs = int(EdgeInstance.vs)
-        return refIs + int(EdgeInstance.currentNumEdges)
+        return refIs + int(6)
     return refIs
 
 if __name__ == '__main__':
