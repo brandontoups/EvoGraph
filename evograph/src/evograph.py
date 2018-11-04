@@ -96,7 +96,7 @@ def readGraph(inputFile):
 # Hash Function for U(0, (k-1)*|E|-1)
 # h1 :key->[0,...,(k-1)*|E|-1] 
 def h1(key):
-    return H(key) % ((EdgeInstance.kScalar-1) * 6)
+    return H(key) % ((EdgeInstance.kScalar-1) * EdgeInstance.currentNumEdges)
     
 def h2(key):
     return H(key) % 2
