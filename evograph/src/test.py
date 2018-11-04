@@ -1,20 +1,29 @@
 '''
-Created on Oct 30, 2018
+Created on Nov 4, 2018
 
-@authors: Brandon Toups
+@author: Brandon
 '''
 
+class MyClass(object):
+    '''
+    classdocs
+    '''
+    
+    def __init__(self, params):
+        '''
+        Constructor
+        '''
+    globalVars = 'f'
+        
+    
+def run(): 
+    print MyClass.globalVars
+    MyClass.globalVars='t'
+    print MyClass.globalVars    
+run()
 
-class EdgeInstance(object):
-    currentGraph = {}
-    currentNumEdges = 0
-    y = 0
-    x = 0
-    direction = 0
-    vs = 0
-    vt = 0
-    kScalar = 0
 
+#print MyClass.globalVars
 
 
 # Algorithm 1 EvoGraph
@@ -66,16 +75,18 @@ class EdgeInstance(object):
 #     (vs,vt) <- DETERMINE(ey);
 #     WRITE (vs , vt );
 def evograph():
-    readGraph('../data/sf=1.txt')
-    EdgeInstance.kScalar = 2
+    graph, numberInitialEdges = readGraph('../data/sf=1.txt')
+    kScalar = 2
+    print graph
+    for y in range(numberInitialEdges, (kScalar * numberInitialEdges)):
+        graph, numEdgesCurrently = readGraph('../data/sf=1.txt')
+        graph['e'+str(y)] = DETERMINE(graph, numberInitialEdges, y, kScalar)
+        graph = readGraph
+    #    upscaledGraph['e' + str(y)] = DETERMINE(graph, numberInitialEdges, graph['e' + y])
+        print 'e'+str(y)
+        print graph['e'+str(y)]
 
-    for y in range(EdgeInstance.currentNumEdges, (EdgeInstance.kScalar * EdgeInstance.currentNumEdges)):
-        readGraph('../data/sf=1.txt')
-        DETERMINE(y)
-        WRITE()
 
-def WRITE():
-    print 'Writing...'
     
 def readGraph(inputFile):
     with open(inputFile) as f:
@@ -87,16 +98,15 @@ def readGraph(inputFile):
             vt = line.split()[1]
             edges['e' + str(edgeNum)] = (vs,vt)
             edgeNum+=1
-    EdgeInstance.currentGraph = edges
-    EdgeInstance.currentNumEdges = edgeNum
+    return edges, edgeNum
    
    
 # H(key) = ((key + 13) x 7)
 # h1(y) determines the ID x of a parent edge ex of the edge ey
 # Hash Function for U(0, (k-1)*|E|-1)
 # h1 :key->[0,...,(k-1)*|E|-1] 
-def h1(key):
-    return H(key) % ((EdgeInstance.kScalar-1) * 6)
+def h1(key, k):
+    return H(key) % ((k-1) * 6)
     
 def h2(key):
     return H(key) % 2
@@ -127,47 +137,46 @@ def H(key):
 #===============================================================================
     
     
-def DETERMINE(y):
+def DETERMINE(graph, numberInitialEdges, y, kScalar):
     # x ~ U(0, (k-1)*|E|-1)
-    EdgeInstance.x = h1(y)
+    x = h1(numberInitialEdges, kScalar)
     # direction ~ U(0,1)
-    EdgeInstance.direction = h2(y)
+    direction = h2(numberInitialEdges)
     
-    
-    print EdgeInstance.currentGraph
+    vsvt = []
     # if x < |E|:
-    if EdgeInstance.x < EdgeInstance.currentNumEdges:
+    if x < numberInitialEdges:
         # (vs,vt) = ex        
-        EdgeInstance.vs = EdgeInstance.currentGraph['e' + str(EdgeInstance.x)][0]
-        EdgeInstance.vt = EdgeInstance.currentGraph['e' + str(EdgeInstance.x)][1]
+        vsvt = graph['e' + str(x)]
     else:
         # (vs,vt) = DETERMINE(ex)
-        vsvt = DETERMINE(y)
-        EdgeInstance.vs = vsvt[0]
-        EdgeInstance.vt = vsvt[1]
-    
+        print 'asdf'
+        vsvt = DETERMINE(graph, numberInitialEdges, y, kScalar)
+        
+
+    refvsvt = []
+     
  
     # if direction == 0
-    if EdgeInstance.direction == 0:
+    if direction == 0:
         # (REFSF=k(vs), vt)
-        #refvsvt = [ REFSF(vsvt, 'firstIndex', numberInitialEdges) , vsvt[1] ]
-        refvsvt = [ REFSF(1), EdgeInstance.vt ]
+        refvsvt = [ REFSF(vsvt, 'firstIndex', numberInitialEdges) , vsvt[1] ]
     else:
         # (vs,REFSF=k(vt))        
-        refvsvt = [ EdgeInstance.vs , REFSF(2) ]
-    
+        refvsvt = [ vsvt[0] , REFSF(vsvt, 'secondIndex', numberInitialEdges) ]
+     
     with open('../data/out.txt','a') as file:
         file.write( str(refvsvt[0]) + '\t' + str(refvsvt[1])  + '\n')
     return refvsvt
     
-def REFSF(whichIndex):
+def REFSF(parentEdgeVertices, location, numberInitialVertices):
     refIs = 0
-    if whichIndex == 2:
-        refIs = int(EdgeInstance.vt)
-        return refIs + int(EdgeInstance.currentNumEdges)
+    if location == 'secondIndex':
+        refIs = int(parentEdgeVertices[1])
+        return refIs + int(numberInitialVertices)
     else:
-        refIs = int(EdgeInstance.vs)
-        return refIs + int(EdgeInstance.currentNumEdges)
+        refIs = int(parentEdgeVertices[0])
+        return refIs + int(numberInitialVertices)
     return refIs
 
 if __name__ == '__main__':
