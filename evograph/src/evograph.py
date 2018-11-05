@@ -3,6 +3,7 @@ Created on Oct 30, 2018
 
 @authors: Brandon Toups
 '''
+from tensorflow.contrib.tensorboard.graph_explorer.proto.graph_explorer_pb2 import Edge
 
 # Algorithm 1 EvoGraph
 # Input G = (V, E) // original graph
@@ -51,13 +52,12 @@ class EdgeInstance(object):
     currentNumNodes = 0
     initialNumEdges = 0
     initialNumNodes = 0
-    currentSFlevel = 1
     y = 0
     x = 0
     direction = 0
     vs = 0
     vt = 0
-    kScalar = 0
+    initialKVal = 0
     currentKVal = 2
 
 # Algorithm 1 EvoGraph
@@ -69,18 +69,21 @@ class EdgeInstance(object):
 #     WRITE (vs , vt );
 def evograph():
     readGraph('../data/sf=1.txt')
-    EdgeInstance.kScalar = 3
+    EdgeInstance.initialKVal = 3
     EdgeInstance.initialNumNodes = EdgeInstance.initialNumEdges - 1
+    
     # initialized to 6 to make sure there is 
     rangeEdges = EdgeInstance.initialNumEdges
-    for y in range(EdgeInstance.initialNumEdges, (EdgeInstance.kScalar * rangeEdges)):
+    for EdgeInstance.currentNumEdges in range(EdgeInstance.initialNumEdges, (EdgeInstance.initialKVal * rangeEdges)):
         readGraph('../data/sf=1.txt')
-        refvsvt = DETERMINE(y)
-        WRITE(refvsvt, y)
+        refvsvt = DETERMINE(EdgeInstance.currentNumEdges)
+        WRITE(refvsvt, EdgeInstance.currentNumEdges)
+    
         
 def WRITE(refvsvt, y):
     with open('../data/sf=1.txt','a') as openFile:
         openFile.write( str(refvsvt[0]) + '\t' + str(refvsvt[1])  + '\t#e' + str(y) + '\n')
+
         
 # DETERMINE(ey) :
 #     x ~ U(0, (k-1)*|E|-1)
@@ -95,12 +98,17 @@ def WRITE(refvsvt, y):
 # else:
 #     (vs,REFSF=k(vt))
 def DETERMINE(y):
+    
+    if EdgeInstance.currentNumEdges == EdgeInstance.initialNumEdges*EdgeInstance.currentKVal:
+        print 'incrementing at ' + str(y)
+        EdgeInstance.currentKVal+=1
+    
     # x ~ U(0, (k-1)*|E|-1)
     EdgeInstance.x = h1(y)
+    
     # direction ~ U(0,1)
     EdgeInstance.direction = h2(y)
-    
-    #print EdgeInstance.currentGraph
+
     # if x < |E|:
     if EdgeInstance.x < EdgeInstance.initialNumEdges:
         # (vs,vt) = ex        
@@ -108,25 +116,20 @@ def DETERMINE(y):
         EdgeInstance.vt = EdgeInstance.currentGraph['e' + str(EdgeInstance.x)][1]
     else:
         # (vs,vt) = DETERMINE(ex)
-        print '\nRecursion ... \n'
+        print 'RECURSION'     
         vsvt = DETERMINE(EdgeInstance.x)
         EdgeInstance.vs = vsvt[0]
         EdgeInstance.vt = vsvt[1]
+        
     
     # if direction == 0
     if EdgeInstance.direction == 0:
         # (REFSF=k(vs), vt)
-        refvsvt = [ REFSF(1), EdgeInstance.vt ]
+        refvsvt = [ int(REFSF(1)), int(EdgeInstance.vt) ]
     else:
         # (vs,REFSF=k(vt))        
-        refvsvt = [ EdgeInstance.vs , REFSF(2) ]
-    
-    #===========================================================================
-    # # WRITE() internal to DETERMINE
-    # with open('../data/sf=1.txt','a') as file:
-    #     file.write( str(refvsvt[0]) + '\t' + str(refvsvt[1])  + '\t#e' + str(y) + '\n')
-    #     
-    #===========================================================================
+        refvsvt = [ int(EdgeInstance.vs) , int(REFSF(2)) ]
+    print refvsvt
     return refvsvt
     
 def readGraph(inputFile):
@@ -143,14 +146,27 @@ def readGraph(inputFile):
         EdgeInstance.initialNumEdges = edgeNum
     EdgeInstance.currentGraph = edges
     EdgeInstance.currentNumEdges = edgeNum
-   
+    
+    
    
 # H(key) = ((key + 13) x 7)
 # h1(y) determines the ID x of a parent edge ex of the edge ey
 # Hash Function for U(0, (k-1)*|E|-1)
 # h1 :key->[0,...,(k-1)*|E|-1] 
 def h1(key):
-    return H(key) % ((EdgeInstance.currentKVal-1) * EdgeInstance.initialNumEdges)
+    
+    #===========================================================================
+    #===========================================================================
+    # print 'key ' + str(key)
+    # print 'currentkval ' + str(EdgeInstance.currentKVal)
+    # #===========================================================================
+    # print 'calculating'
+    # print H(key) % ((EdgeInstance.currentKVal-1) * 6)
+    # print ' '
+    #===========================================================================
+    
+    return H(key) % ((EdgeInstance.currentKVal-1) * (6))
+    
     
 # h2(y) determines a direction of the edge ey (direction 0 means towards 
 # the inside of the graph, while direction 1 means towards the outside of graph.
@@ -162,22 +178,19 @@ def h2(key):
 def H(key):
     return ((key + 13) * 7)
 
+
 def REFSF(whichIndex):
     refIs = 0
     nodesOnLevel = EdgeInstance.initialNumNodes
     if whichIndex == 2:
         refIs = int(EdgeInstance.vt)
-        return refIs + int(nodesOnLevel)
+        return refIs + int(nodesOnLevel* (EdgeInstance.currentKVal-1))
     else:
         refIs = int(EdgeInstance.vs)
-        return refIs + int(nodesOnLevel)
+        return refIs + int(nodesOnLevel* (EdgeInstance.currentKVal-1))
     return refIs
 
-def checkSFLevel():
-    if EdgeInstance.currentNumEdges % EdgeInstance.initialNumEdges == 0:
-        EdgeInstance.currentKVal += 1
-        EdgeInstance.currentSFlevel += 1
-        #print 'CheckSF---------' + str(EdgeInstance.currentNumEdges)
+
 
 def outputGraph():
     with open('../data/sf=1.txt', 'r') as fin:
@@ -198,9 +211,10 @@ def returnSF1ToOriginal():
     file2.close()
     
 if __name__ == '__main__':
+    returnSF1ToOriginal()
     evograph() 
     outputGraph()
-    returnSF1ToOriginal()
+    
     
 
     
