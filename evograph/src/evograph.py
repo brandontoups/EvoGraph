@@ -50,6 +50,7 @@ class EdgeInstance(object):
     currentNumEdges = 0
     initialNumEdges = 0
     initialNumNodes = 0
+    currentSFlevel = 1
     y = 0
     x = 0
     direction = 0
@@ -68,7 +69,8 @@ def evograph():
     readGraph('../data/sf=1.txt')
     EdgeInstance.kScalar = 2
     
-    EdgeInstance.initialNumNodes = EdgeInstance.initialNumEdges
+    EdgeInstance.initialNumNodes = EdgeInstance.initialNumEdges - 1
+    
     
     # initialized to 6 to make sure there is 
     rangeEdges = EdgeInstance.initialNumEdges
@@ -162,12 +164,13 @@ def H(key):
 
 def REFSF(whichIndex):
     refIs = 0
+    nodesOnLevel = EdgeInstance.initialNumNodes * EdgeInstance.currentSFlevel
     if whichIndex == 2:
         refIs = int(EdgeInstance.vt)
-        return refIs + int(5)
+        return refIs + int(nodesOnLevel)
     else:
         refIs = int(EdgeInstance.vs)
-        return refIs + int(5)
+        return refIs + int(nodesOnLevel)
     return refIs
 
 if __name__ == '__main__':
