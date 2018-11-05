@@ -48,7 +48,6 @@ Created on Oct 30, 2018
 class EdgeInstance(object):
     currentGraph = {}
     currentNumEdges = 0
-    currentNumNodes = 0
     initialNumEdges = 0
     initialNumNodes = 0
     currentSFlevel = 1
@@ -58,7 +57,6 @@ class EdgeInstance(object):
     vs = 0
     vt = 0
     kScalar = 0
-    currentKVal = 2
 
 # Algorithm 1 EvoGraph
 # Input G = (V, E) // original graph
@@ -69,14 +67,14 @@ class EdgeInstance(object):
 #     WRITE (vs , vt );
 def evograph():
     readGraph('../data/sf=1.txt')
-    EdgeInstance.kScalar = 3
+    EdgeInstance.kScalar = 2
     
     EdgeInstance.initialNumNodes = EdgeInstance.initialNumEdges - 1
     
     
     # initialized to 6 to make sure there is 
     rangeEdges = EdgeInstance.initialNumEdges
-    for y in range(EdgeInstance.initialNumEdges, (EdgeInstance.kScalar * rangeEdges)):
+    for y in range(EdgeInstance.currentNumEdges, (EdgeInstance.kScalar * rangeEdges)):
         readGraph('../data/sf=1.txt')
         DETERMINE(y)
         WRITE()
@@ -124,7 +122,7 @@ def DETERMINE(y):
     # WRITE() internal to DETERMINE
     with open('../data/sf=1.txt','a') as file:
         file.write( str(refvsvt[0]) + '\t' + str(refvsvt[1])  + '\t#e' + str(y) + '\n')
-        
+    
     return refvsvt
 
 def WRITE():
@@ -152,7 +150,7 @@ def readGraph(inputFile):
 # Hash Function for U(0, (k-1)*|E|-1)
 # h1 :key->[0,...,(k-1)*|E|-1] 
 def h1(key):
-    return H(key) % ((EdgeInstance.currentKVal-1) * EdgeInstance.initialNumEdges)
+    return H(key) % ((EdgeInstance.kScalar-1) * EdgeInstance.initialNumEdges)
     
 # h2(y) determines a direction of the edge ey (direction 0 means towards 
 # the inside of the graph, while direction 1 means towards the outside of graph.
@@ -166,7 +164,7 @@ def H(key):
 
 def REFSF(whichIndex):
     refIs = 0
-    nodesOnLevel = EdgeInstance.initialNumNodes
+    nodesOnLevel = EdgeInstance.initialNumNodes * EdgeInstance.currentSFlevel
     if whichIndex == 2:
         refIs = int(EdgeInstance.vt)
         return refIs + int(nodesOnLevel)
@@ -174,12 +172,6 @@ def REFSF(whichIndex):
         refIs = int(EdgeInstance.vs)
         return refIs + int(nodesOnLevel)
     return refIs
-
-def checkSFLevel():
-    if EdgeInstance.currentNumEdges % EdgeInstance.initialNumEdges == 0:
-        EdgeInstance.currentKVal += 1
-        EdgeInstance.currentSFlevel += 1
-        print 'CheckSF---------' + str(EdgeInstance.currentNumEdges)
 
 if __name__ == '__main__':
     evograph() 
