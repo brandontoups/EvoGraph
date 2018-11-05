@@ -48,6 +48,8 @@ Created on Oct 30, 2018
 class EdgeInstance(object):
     currentGraph = {}
     currentNumEdges = 0
+    initialNumEdges = 0
+    initialNumNodes = 0
     y = 0
     x = 0
     direction = 0
@@ -64,9 +66,12 @@ class EdgeInstance(object):
 #     WRITE (vs , vt );
 def evograph():
     readGraph('../data/sf=1.txt')
-    EdgeInstance.kScalar = 3
+    EdgeInstance.kScalar = 2
+    
+    EdgeInstance.initialNumNodes = EdgeInstance.initialNumEdges
+    
     # initialized to 6 to make sure there is 
-    rangeEdges = EdgeInstance.currentNumEdges
+    rangeEdges = EdgeInstance.initialNumEdges
     for y in range(EdgeInstance.currentNumEdges, (EdgeInstance.kScalar * rangeEdges)):
         readGraph('../data/sf=1.txt')
         DETERMINE(y)
@@ -93,7 +98,7 @@ def DETERMINE(y):
     
     print EdgeInstance.currentGraph
     # if x < |E|:
-    if EdgeInstance.x < 6:
+    if EdgeInstance.x < EdgeInstance.initialNumEdges:
         # (vs,vt) = ex        
         EdgeInstance.vs = EdgeInstance.currentGraph['e' + str(EdgeInstance.x)][0]
         EdgeInstance.vt = EdgeInstance.currentGraph['e' + str(EdgeInstance.x)][1]
@@ -132,6 +137,8 @@ def readGraph(inputFile):
             vt = line.split()[1]
             edges['e' + str(edgeNum)] = (vs,vt)
             edgeNum+=1
+    if EdgeInstance.currentNumEdges == 0:
+        EdgeInstance.initialNumEdges = edgeNum
     EdgeInstance.currentGraph = edges
     EdgeInstance.currentNumEdges = edgeNum
    
@@ -141,7 +148,7 @@ def readGraph(inputFile):
 # Hash Function for U(0, (k-1)*|E|-1)
 # h1 :key->[0,...,(k-1)*|E|-1] 
 def h1(key):
-    return H(key) % ((EdgeInstance.kScalar-1) * 6)
+    return H(key) % ((EdgeInstance.kScalar-1) * EdgeInstance.initialNumEdges)
     
 # h2(y) determines a direction of the edge ey (direction 0 means towards 
 # the inside of the graph, while direction 1 means towards the outside of graph.
@@ -168,11 +175,5 @@ if __name__ == '__main__':
     
     
     
-    
-    
-    
-    
-    
-    
-    
+
     
