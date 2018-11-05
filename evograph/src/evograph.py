@@ -69,17 +69,18 @@ class EdgeInstance(object):
 #     WRITE (vs , vt );
 def evograph():
     readGraph('../data/sf=1.txt')
-    EdgeInstance.kScalar = 2
-    
+    EdgeInstance.kScalar = 3
     EdgeInstance.initialNumNodes = EdgeInstance.initialNumEdges - 1
-    
-    
     # initialized to 6 to make sure there is 
     rangeEdges = EdgeInstance.initialNumEdges
     for y in range(EdgeInstance.initialNumEdges, (EdgeInstance.kScalar * rangeEdges)):
         readGraph('../data/sf=1.txt')
-        DETERMINE(y)
-        WRITE()
+        refvsvt = DETERMINE(y)
+        WRITE(refvsvt, y)
+        
+def WRITE(refvsvt, y):
+    with open('../data/sf=1.txt','a') as openFile:
+        openFile.write( str(refvsvt[0]) + '\t' + str(refvsvt[1])  + '\t#e' + str(y) + '\n')
         
 # DETERMINE(ey) :
 #     x ~ U(0, (k-1)*|E|-1)
@@ -93,22 +94,21 @@ def evograph():
 #     (REFSF=k(vs),vt)
 # else:
 #     (vs,REFSF=k(vt))
-    
 def DETERMINE(y):
     # x ~ U(0, (k-1)*|E|-1)
     EdgeInstance.x = h1(y)
     # direction ~ U(0,1)
     EdgeInstance.direction = h2(y)
     
-    print EdgeInstance.currentGraph
+    #print EdgeInstance.currentGraph
     # if x < |E|:
     if EdgeInstance.x < EdgeInstance.initialNumEdges:
         # (vs,vt) = ex        
         EdgeInstance.vs = EdgeInstance.currentGraph['e' + str(EdgeInstance.x)][0]
         EdgeInstance.vt = EdgeInstance.currentGraph['e' + str(EdgeInstance.x)][1]
     else:
-        # (vs,vt) = DETERMINE(ex)\n\n\n'
-        print '\nRecursion Happening\n'
+        # (vs,vt) = DETERMINE(ex)
+        print '\nRecursion ... \n'
         vsvt = DETERMINE(EdgeInstance.x)
         EdgeInstance.vs = vsvt[0]
         EdgeInstance.vt = vsvt[1]
@@ -121,17 +121,15 @@ def DETERMINE(y):
         # (vs,REFSF=k(vt))        
         refvsvt = [ EdgeInstance.vs , REFSF(2) ]
     
-    # WRITE() internal to DETERMINE
-    with open('../data/sf=1.txt','a') as file:
-        file.write( str(refvsvt[0]) + '\t' + str(refvsvt[1])  + '\t#e' + str(y) + '\n')
-        
+    #===========================================================================
+    # # WRITE() internal to DETERMINE
+    # with open('../data/sf=1.txt','a') as file:
+    #     file.write( str(refvsvt[0]) + '\t' + str(refvsvt[1])  + '\t#e' + str(y) + '\n')
+    #     
+    #===========================================================================
     return refvsvt
-
-def WRITE():
-    print 'Writing...'
     
 def readGraph(inputFile):
-    print 'Reading...'
     with open(inputFile) as f:
         edges = {}
         lines = f.readlines()
@@ -179,12 +177,30 @@ def checkSFLevel():
     if EdgeInstance.currentNumEdges % EdgeInstance.initialNumEdges == 0:
         EdgeInstance.currentKVal += 1
         EdgeInstance.currentSFlevel += 1
-        print 'CheckSF---------' + str(EdgeInstance.currentNumEdges)
+        #print 'CheckSF---------' + str(EdgeInstance.currentNumEdges)
 
+def outputGraph():
+    with open('../data/sf=1.txt', 'r') as fin:
+        print fin.read()
+
+def returnSF1ToOriginal():
+    # opens original file
+    file1 = open("../data/original.txt" , "r")
+    # opens new file
+    file2 = open("../data/sf=1.txt" , "w")
+    #for each line in old file
+    for line in file1:
+        #write that line to the new file
+        file2.write(line)
+    #close file 1
+    file1.close()
+    #close file2
+    file2.close()
+    
 if __name__ == '__main__':
     evograph() 
-    
-    
+    outputGraph()
+    returnSF1ToOriginal()
     
 
     
