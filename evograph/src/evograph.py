@@ -5,6 +5,10 @@ Created on Oct 30, 2018
 '''
 
 
+
+#something like a list of the graphs that have been seen before. or if the current edgeinstance has been seen before or is 
+# currently in the graph 
+
 # Algorithm 1 EvoGraph
 # Input G = (V, E) // original graph
 #       k // scale factor
