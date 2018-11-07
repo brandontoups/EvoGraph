@@ -1,28 +1,104 @@
-[0, 7]
-[6, 2]
-[2, 8]
-[7, 4]
-[3, 9]
-[5, 1]
+index2
+0 2
+current num edges 6
+Nodes on level 5
+Current k val: 2
+initiallly refIs: 2
+calculated7
+ 
+index1
+1 2
+current num edges 7
+Nodes on level 5
+Current k val: 2
+initiallly refIs: 1
+calculated6
+ 
+index2
+2 3
+current num edges 8
+Nodes on level 5
+Current k val: 2
+initiallly refIs: 3
+calculated8
+ 
+index1
+2 4
+current num edges 9
+Nodes on level 5
+Current k val: 2
+initiallly refIs: 2
+calculated7
+ 
+index2
+3 4
+current num edges 10
+Nodes on level 5
+Current k val: 2
+initiallly refIs: 4
+calculated9
+ 
+index1
+0 1
+current num edges 11
+Nodes on level 5
+Current k val: 2
+initiallly refIs: 0
+calculated5
+ 
 incrementing at 12
 RECURSION
+index2
+0 0
+current num edges 12
+Nodes on level 5
+Current k val: 3
+initiallly refIs: 0
+calculated10
+ 
+index1
+1 2
+current num edges 13
+Nodes on level 5
+Current k val: 3
+initiallly refIs: 1
+calculated11
+ 
 RECURSION
-[2, 13]
-[2, 23]
-[2, 33]
-[11, 2]
+index2
+0 0
+current num edges 14
+Nodes on level 5
+Current k val: 3
+initiallly refIs: 0
+calculated10
+ 
+index1
+2 4
+current num edges 15
+Nodes on level 5
+Current k val: 3
+initiallly refIs: 2
+calculated12
+ 
 RECURSION
+index2
+0 0
+current num edges 16
+Nodes on level 5
+Current k val: 3
+initiallly refIs: 0
+calculated10
+ 
 RECURSION
-[3, 14]
-[3, 24]
-[3, 34]
-[12, 4]
-RECURSION
-[10, 1]
-[20, 1]
-RECURSION
-[0, 12]
-[0, 22]
+index1
+0 0
+current num edges 17
+Nodes on level 5
+Current k val: 3
+initiallly refIs: 0
+calculated10
+ 
 0	1	#e0
 0	2	#e1
 1	2	#e2
@@ -35,10 +111,10 @@ RECURSION
 7	4	#e9
 3	9	#e10
 5	1	#e11
-2	33	#e12
+0	10	#e12
 11	2	#e13
-3	34	#e14
+0	10	#e14
 12	4	#e15
-20	1	#e16
-0	22	#e17
+0	10	#e16
+10	0	#e17
 
