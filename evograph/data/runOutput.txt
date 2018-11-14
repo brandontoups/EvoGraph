@@ -1,3 +1,8 @@
+key 6
+currentkval 2
+calculating
+h1 calculated as 1
+
 index2
 0 2
 current num edges 6
@@ -5,15 +10,31 @@ Nodes on level 5
 Current k val: 2
 initiallly refIs: 2
 calculated7
- 
+Program writing [0, 7] to the file
+About to write [0, 7]
+Writing now [0, 7] to the file 
+
+key 7
+currentkval 2
+calculating
+h1 calculated as 2
+
 index1
 1 2
 current num edges 7
 Nodes on level 5
 Current k val: 2
 initiallly refIs: 1
-calculated6
- 
+calculated 6
+Program writing [6, 2] to the file
+About to write [6, 2]
+Writing now [6, 2] to the file 
+
+key 8
+currentkval 2
+calculating
+h1 calculated as 3
+
 index2
 2 3
 current num edges 8
@@ -21,15 +42,31 @@ Nodes on level 5
 Current k val: 2
 initiallly refIs: 3
 calculated8
- 
+Program writing [2, 8] to the file
+About to write [2, 8]
+Writing now [2, 8] to the file 
+
+key 9
+currentkval 2
+calculating
+h1 calculated as 4
+
 index1
 2 4
 current num edges 9
 Nodes on level 5
 Current k val: 2
 initiallly refIs: 2
-calculated7
- 
+calculated 7
+Program writing [7, 4] to the file
+About to write [7, 4]
+Writing now [7, 4] to the file 
+
+key 10
+currentkval 2
+calculating
+h1 calculated as 5
+
 index2
 3 4
 current num edges 10
@@ -37,68 +74,226 @@ Nodes on level 5
 Current k val: 2
 initiallly refIs: 4
 calculated9
- 
+Program writing [3, 9] to the file
+About to write [3, 9]
+Writing now [3, 9] to the file 
+
+key 11
+currentkval 2
+calculating
+h1 calculated as 0
+
 index1
 0 1
 current num edges 11
 Nodes on level 5
 Current k val: 2
 initiallly refIs: 0
-calculated5
- 
-incrementing at 12
-RECURSION
+calculated 5
+Program writing [5, 1] to the file
+About to write [5, 1]
+Writing now [5, 1] to the file 
+
+incrementing k at 12
+k is now at k=3
+key 12
+currentkval 3
+calculating
+h1 calculated as 7
+
+RECURSION HAPPENING
+
+key 7
+currentkval 3
+calculating
+h1 calculated as 8
+
+RECURSION HAPPENING
+
+key 8
+currentkval 3
+calculating
+h1 calculated as 3
+
 index2
-0 0
+2 3
 current num edges 12
 Nodes on level 5
 Current k val: 3
-initiallly refIs: 0
-calculated10
- 
+initiallly refIs: 3
+calculated13
+Program writing [2, 13] to the file
+After recursion call, vsvt is [2, 13]
+
+index2
+2 13
+current num edges 12
+Nodes on level 5
+Current k val: 3
+initiallly refIs: 13
+calculated23
+Program writing [2, 23] to the file
+After recursion call, vsvt is [2, 23]
+
+index2
+2 23
+current num edges 12
+Nodes on level 5
+Current k val: 3
+initiallly refIs: 23
+calculated33
+Program writing [2, 33] to the file
+About to write [2, 33]
+Writing now [2, 33] to the file 
+
+key 13
+currentkval 3
+calculating
+h1 calculated as 2
+
 index1
 1 2
 current num edges 13
 Nodes on level 5
 Current k val: 3
 initiallly refIs: 1
-calculated11
- 
-RECURSION
+calculated 11
+Program writing [11, 2] to the file
+About to write [11, 2]
+Writing now [11, 2] to the file 
+
+key 14
+currentkval 3
+calculating
+h1 calculated as 9
+
+RECURSION HAPPENING
+
+key 9
+currentkval 3
+calculating
+h1 calculated as 10
+
+RECURSION HAPPENING
+
+key 10
+currentkval 3
+calculating
+h1 calculated as 5
+
 index2
-0 0
+3 4
 current num edges 14
 Nodes on level 5
 Current k val: 3
-initiallly refIs: 0
-calculated10
- 
+initiallly refIs: 4
+calculated14
+Program writing [3, 14] to the file
+After recursion call, vsvt is [3, 14]
+
+index2
+3 14
+current num edges 14
+Nodes on level 5
+Current k val: 3
+initiallly refIs: 14
+calculated24
+Program writing [3, 24] to the file
+After recursion call, vsvt is [3, 24]
+
+index2
+3 24
+current num edges 14
+Nodes on level 5
+Current k val: 3
+initiallly refIs: 24
+calculated34
+Program writing [3, 34] to the file
+About to write [3, 34]
+Writing now [3, 34] to the file 
+
+key 15
+currentkval 3
+calculating
+h1 calculated as 4
+
 index1
 2 4
 current num edges 15
 Nodes on level 5
 Current k val: 3
 initiallly refIs: 2
-calculated12
- 
-RECURSION
-index2
-0 0
+calculated 12
+Program writing [12, 4] to the file
+About to write [12, 4]
+Writing now [12, 4] to the file 
+
+key 16
+currentkval 3
+calculating
+h1 calculated as 11
+
+RECURSION HAPPENING
+
+key 11
+currentkval 3
+calculating
+h1 calculated as 0
+
+index1
+0 1
 current num edges 16
 Nodes on level 5
 Current k val: 3
 initiallly refIs: 0
-calculated10
- 
-RECURSION
+calculated 10
+Program writing [10, 1] to the file
+After recursion call, vsvt is [10, 1]
+
 index1
-0 0
+10 1
+current num edges 16
+Nodes on level 5
+Current k val: 3
+initiallly refIs: 10
+calculated 20
+Program writing [20, 1] to the file
+About to write [20, 1]
+Writing now [20, 1] to the file 
+
+key 17
+currentkval 3
+calculating
+h1 calculated as 6
+
+RECURSION HAPPENING
+
+key 6
+currentkval 3
+calculating
+h1 calculated as 1
+
+index2
+0 2
 current num edges 17
 Nodes on level 5
 Current k val: 3
-initiallly refIs: 0
-calculated10
- 
+initiallly refIs: 2
+calculated12
+Program writing [0, 12] to the file
+After recursion call, vsvt is [0, 12]
+
+index2
+0 12
+current num edges 17
+Nodes on level 5
+Current k val: 3
+initiallly refIs: 12
+calculated22
+Program writing [0, 22] to the file
+About to write [0, 22]
+Writing now [0, 22] to the file 
+
 0	1	#e0
 0	2	#e1
 1	2	#e2
@@ -111,10 +306,10 @@ calculated10
 7	4	#e9
 3	9	#e10
 5	1	#e11
-0	10	#e12
+2	33	#e12
 11	2	#e13
-0	10	#e14
+3	34	#e14
 12	4	#e15
-0	10	#e16
-10	0	#e17
+20	1	#e16
+0	22	#e17
 

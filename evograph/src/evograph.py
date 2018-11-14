@@ -4,10 +4,8 @@ Created on Oct 30, 2018
 @authors: Brandon Toups
 '''
 
-
-
-#something like a list of the graphs that have been seen before. or if the current edgeinstance has been seen before or is 
-# currently in the graph 
+import sys as sys
+sys.setrecursionlimit(8)
 
 # Algorithm 1 EvoGraph
 # Input G = (V, E) // original graph
@@ -79,14 +77,17 @@ def evograph():
     # initialized to 6 to make sure there is 
     rangeEdges = EdgeInstance.initialNumEdges
     for EdgeInstance.currentNumEdges in range(EdgeInstance.initialNumEdges, (EdgeInstance.initialKVal * rangeEdges)):
+        readGraph('../data/sf=1.txt')
         refvsvt = DETERMINE(EdgeInstance.currentNumEdges)
-        if refvsvt != [0,0]:
-            WRITE(refvsvt, EdgeInstance.currentNumEdges)
+        print 'About to write ' + str(refvsvt)
+        WRITE(refvsvt, EdgeInstance.currentNumEdges)
     
         
 def WRITE(refvsvt, y):
     with open('../data/sf=1.txt','a') as openFile:
+        print 'Writing now ' + str(refvsvt) + ' to the file \n'
         openFile.write( str(refvsvt[0]) + '\t' + str(refvsvt[1])  + '\t#e' + str(y) + '\n')
+        
 
         
 # DETERMINE(ey) :
@@ -101,66 +102,43 @@ def WRITE(refvsvt, y):
 #     (REFSF=k(vs),vt)
 # else:
 #     (vs,REFSF=k(vt))
-
-
-#===============================================================================
-# def some_function(..., is_first=True):
-#     if is_first:
-#         # code to run the first time
-#     else
-#         # code to run the other times
-#     # recurse
-#     some_function(..., is_first=False)
-#===============================================================================
-
-
-
-def DETERMINE(y, time=1):
+def DETERMINE(y):
     
-    if time==1:
+    if EdgeInstance.currentNumEdges == EdgeInstance.initialNumEdges*EdgeInstance.currentKVal:
+        print 'incrementing k at ' + str(y)
+        EdgeInstance.currentKVal+=1
+        print 'k is now at k='+str(EdgeInstance.currentKVal)
     
-        readGraph('../data/sf=1.txt')
-        
-        if EdgeInstance.currentNumEdges == EdgeInstance.initialNumEdges*EdgeInstance.currentKVal:
-            print 'incrementing at ' + str(y)
-            EdgeInstance.currentKVal+=1
-        
-        # x ~ U(0, (k-1)*|E|-1)
-        EdgeInstance.x = h1(y)
-        
-        # direction ~ U(0,1)
-        EdgeInstance.direction = h2(y)
+    # x ~ U(0, (k-1)*|E|-1)
+    EdgeInstance.x = h1(y)
     
-        # if x < |E|:
-        if EdgeInstance.x < EdgeInstance.initialNumEdges:
-            # (vs,vt) = ex        
-            EdgeInstance.vs = EdgeInstance.currentGraph['e' + str(EdgeInstance.x)][0]
-            EdgeInstance.vt = EdgeInstance.currentGraph['e' + str(EdgeInstance.x)][1]
-        else:
-            # (vs,vt) = DETERMINE(ex)
-            print 'RECURSION'
-                 
-            vsvt = DETERMINE(EdgeInstance.x, time=0)
-            if time==0:
-                vsvt = [0,0]
-            else:
-                EdgeInstance.vs = vsvt[0]
-                EdgeInstance.vt = vsvt[1]
-            
-        if time != 0:
-            # if direction == 0
-            if EdgeInstance.direction == 0:
-                # (REFSF=k(vs), vt)
-                refvsvt = [ int(REFSF(1)), int(EdgeInstance.vt) ]
-                
-            else:
-                # (vs,REFSF=k(vt))        
-                refvsvt = [ int(EdgeInstance.vs) , int(REFSF(2)) ]
-            return refvsvt
-        else:
-            return [0,0]
+    
+    # direction ~ U(0,1)
+    EdgeInstance.direction = h2(y)
+
+    # if x < |E|:
+    if EdgeInstance.x < EdgeInstance.initialNumEdges:
+        # (vs,vt) = ex        
+        EdgeInstance.vs = EdgeInstance.currentGraph['e' + str(EdgeInstance.x)][0]
+        EdgeInstance.vt = EdgeInstance.currentGraph['e' + str(EdgeInstance.x)][1]
     else:
-        return [0,0]
+        # (vs,vt) = DETERMINE(ex)
+        print '\nRECURSION HAPPENING\n'     
+        vsvt = DETERMINE(EdgeInstance.x)
+        print 'After recursion call, vsvt is ' + str(vsvt)
+        EdgeInstance.vs = vsvt[0]
+        EdgeInstance.vt = vsvt[1]
+        
+    
+    # if direction == 0
+    if EdgeInstance.direction == 0:
+        # (REFSF=k(vs), vt)
+        refvsvt = [ int(REFSF(1)), int(EdgeInstance.vt) ]
+    else:
+        # (vs,REFSF=k(vt))        
+        refvsvt = [ int(EdgeInstance.vs) , int(REFSF(2)) ]
+    print 'Program writing ' + str(refvsvt) + ' to the file'
+    return refvsvt
     
 def readGraph(inputFile):
     with open(inputFile) as f:
@@ -175,7 +153,7 @@ def readGraph(inputFile):
     if EdgeInstance.currentNumEdges == 0:
         EdgeInstance.initialNumEdges = edgeNum
     EdgeInstance.currentGraph = edges
-    EdgeInstance.currentNumEdges = edgeNum
+    #EdgeInstance.currentNumEdges = edgeNum
     
     
    
@@ -185,16 +163,11 @@ def readGraph(inputFile):
 # h1 :key->[0,...,(k-1)*|E|-1] 
 def h1(key):
     
+    print 'key ' + str(key)
+    print 'currentkval ' + str(EdgeInstance.currentKVal)
     #===========================================================================
-    #===========================================================================
-    # print 'key ' + str(key)
-    # print 'currentkval ' + str(EdgeInstance.currentKVal)
-    # #===========================================================================
-    # print 'calculating'
-    # print H(key) % ((EdgeInstance.currentKVal-1) * 6)
-    # print ' '
-    #===========================================================================
-    
+    print 'calculating'
+    print 'h1 calculated as ' + str(H(key) % ((EdgeInstance.currentKVal-1) * (6)))
     return H(key) % ((EdgeInstance.currentKVal-1) * (6))
     
     
@@ -213,7 +186,7 @@ def REFSF(whichIndex):
     refIs = 0
     nodesOnLevel = EdgeInstance.initialNumNodes
     if whichIndex == 2:
-        print 'index' + str(whichIndex)
+        print '\nindex' + str(whichIndex)
         refIs = int(EdgeInstance.vt)
         print str(EdgeInstance.vs) + ' ' + str(EdgeInstance.vt)
         print 'current num edges ' + str(EdgeInstance.currentNumEdges)
@@ -221,18 +194,18 @@ def REFSF(whichIndex):
         print 'Current k val: ' + str(EdgeInstance.currentKVal)
         print 'initiallly refIs: ' + str(refIs)
         print 'calculated' + str(refIs + int(nodesOnLevel* (EdgeInstance.currentKVal-1)))
-        print ' '
+        
         return refIs + int(nodesOnLevel* (EdgeInstance.currentKVal-1))
     else:
-        print 'index' + str(whichIndex)
+        print '\nindex' + str(whichIndex)
         refIs = int(EdgeInstance.vs)
         print str(EdgeInstance.vs) + ' ' + str(EdgeInstance.vt)
         print 'current num edges ' + str(EdgeInstance.currentNumEdges)
         print 'Nodes on level ' + str(nodesOnLevel)
         print 'Current k val: ' + str(EdgeInstance.currentKVal)
         print 'initiallly refIs: ' + str(refIs)
-        print 'calculated' + str(refIs + int(nodesOnLevel* (EdgeInstance.currentKVal-1)))
-        print ' '
+        print 'calculated ' + str(refIs + int(nodesOnLevel* (EdgeInstance.currentKVal-1)))
+    
         return refIs + int(nodesOnLevel* (EdgeInstance.currentKVal-1))
     
     return refIs
