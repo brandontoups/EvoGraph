@@ -1,9 +1,10 @@
 '''
 Created on Oct 30, 2018
 
-@authors: Brandon Toups
+@authors: Brandon Toups (bmt0015)
 '''
-
+import datetime
+import math
 
 # Algorithm 1 EvoGraph
 # Input G = (V, E) // original graph
@@ -45,6 +46,7 @@ Created on Oct 30, 2018
 # thus e1 = (v0,v2) is picked as a parent edge and e6 is determined as (v0,REFSF=2(v2)) = (v0,v7)
 # 
 
+
 # Program Code 
 class EdgeInstance(object):
     currentGraph = {}
@@ -58,6 +60,7 @@ class EdgeInstance(object):
     vs = 0
     vt = 0
     initialKVal = 0
+    # initialized to 2 because we never scale from k=1 to k=1
     currentKVal = 2
 
 # Algorithm 1 EvoGraph
@@ -83,7 +86,6 @@ def evograph(kValToUpscaleTo):
 def WRITE(refvsvt, y):
     with open('../data/sf=1.txt','a') as openFile:
         openFile.write( str(refvsvt[0]) + '\t' + str(refvsvt[1])  + '\t#e' + str(y) + '\n')
-
 
 # DETERMINE(ey) :
 #     x ~ U(0, (k-1)*|E|-1)
@@ -139,18 +141,14 @@ def readGraph(inputFile):
         EdgeInstance.initialNumEdges = edgeNum
     EdgeInstance.currentGraph = edges
     EdgeInstance.currentNumEdges = edgeNum
-    
-    
-   
+      
 # H(key) = ((key + 13) x 7)
 # h1(y) determines the ID x of a parent edge ex of the edge ey
 # Hash Function for U(0, (k-1)*|E|-1)
 
 # h1 :key->[0,...,(k-1)*|E|-1] 
 def h1(key):
-    
     return H(key) % ((EdgeInstance.currentKVal-1) * (6))
-    
     
 # h2(y) determines a direction of the edge ey (direction 0 means towards 
 # the inside of the graph, while direction 1 means towards the outside of graph.
@@ -208,8 +206,12 @@ if __name__ == '__main__':
     
     # Upscale to k=2
     print 'Upscaling original graph from k=1 to k=2: '
-    evograph(2) 
+    startK2 = datetime.datetime.now()
+    evograph(2)
+    finishK2 = datetime.datetime.now() 
     outputGraph()
+    timeElapsedK2 = (finishK2 - startK2).microseconds
+    print 'Upscaling to k=2 took ' + str(timeElapsedK2) + ' microseconds\n'
     
     print 'Compare this to the expected values in k=2 graph (../data/sf=2.txt):'
     print '(tabs in this file used to more easily delineate between levels)'
@@ -221,13 +223,16 @@ if __name__ == '__main__':
     # Upscale to k=3
     print 'Upscaling original graph from k=1 to k=3: '
     returnSF1ToOriginal()
+    startK3 = datetime.datetime.now()
     evograph(3)
+    finishK3 = datetime.datetime.now()
     outputGraph()
+    timeElapsedK3 = (finishK3 - startK3).microseconds
+    print 'Upscaling to k=3 took ' + str(timeElapsedK3) + ' microseconds\n'
     
     print 'Compare this to the expected values in k=3 graph (../data/sf=3.txt):'
     print '(tabs in this file used to more easily delineate between levels)'
     with open('../data/sf=3.txt', 'r') as fin:
         print fin.read()
-    
-
+        
     
