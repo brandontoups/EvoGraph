@@ -4,8 +4,6 @@ Created on Oct 30, 2018
 @authors: Brandon Toups
 '''
 
-import sys as sys
-sys.setrecursionlimit(8)
 
 # Algorithm 1 EvoGraph
 # Input G = (V, E) // original graph
@@ -69,27 +67,24 @@ class EdgeInstance(object):
 # parallel for y in [|E|:k*|E|-1] do 
 #     (vs,vt) <- DETERMINE(ey);
 #     WRITE (vs , vt );
-def evograph():
+def evograph(kValToUpscaleTo):
     readGraph('../data/sf=1.txt')
-    EdgeInstance.initialKVal = 3
+
+    EdgeInstance.initialKVal = kValToUpscaleTo
     EdgeInstance.initialNumNodes = EdgeInstance.initialNumEdges - 1
-    
-    # initialized to 6 to make sure there is 
     rangeEdges = EdgeInstance.initialNumEdges
-    for EdgeInstance.currentNumEdges in range(EdgeInstance.initialNumEdges, (EdgeInstance.initialKVal * rangeEdges)):
+    maxNumEdges = EdgeInstance.initialKVal * rangeEdges
+    for EdgeInstance.currentNumEdges in range(EdgeInstance.initialNumEdges, maxNumEdges):
         readGraph('../data/sf=1.txt')
-        refvsvt = DETERMINE(EdgeInstance.currentNumEdges)
-        print 'About to write ' + str(refvsvt)
-        WRITE(refvsvt, EdgeInstance.currentNumEdges)
+        vsvt = DETERMINE(EdgeInstance.currentNumEdges)
+        WRITE(vsvt, EdgeInstance.currentNumEdges)
     
         
 def WRITE(refvsvt, y):
     with open('../data/sf=1.txt','a') as openFile:
-        print 'Writing now ' + str(refvsvt) + ' to the file \n'
         openFile.write( str(refvsvt[0]) + '\t' + str(refvsvt[1])  + '\t#e' + str(y) + '\n')
-        
 
-        
+
 # DETERMINE(ey) :
 #     x ~ U(0, (k-1)*|E|-1)
 #     direction ~ U(0,1)
@@ -103,33 +98,23 @@ def WRITE(refvsvt, y):
 # else:
 #     (vs,REFSF=k(vt))
 def DETERMINE(y):
-    
+    # next k value if multiple of initial number of edges
     if EdgeInstance.currentNumEdges == EdgeInstance.initialNumEdges*EdgeInstance.currentKVal:
-        print 'incrementing k at ' + str(y)
         EdgeInstance.currentKVal+=1
-        print 'k is now at k='+str(EdgeInstance.currentKVal)
-    
     # x ~ U(0, (k-1)*|E|-1)
     EdgeInstance.x = h1(y)
-    
-    
     # direction ~ U(0,1)
     EdgeInstance.direction = h2(y)
-
     # if x < |E|:
     if EdgeInstance.x < EdgeInstance.initialNumEdges:
         # (vs,vt) = ex        
         EdgeInstance.vs = EdgeInstance.currentGraph['e' + str(EdgeInstance.x)][0]
         EdgeInstance.vt = EdgeInstance.currentGraph['e' + str(EdgeInstance.x)][1]
     else:
-        # (vs,vt) = DETERMINE(ex)
-        print '\nRECURSION HAPPENING\n'     
+        # (vs,vt) = DETERMINE(ex)    
         vsvt = DETERMINE(EdgeInstance.x)
-        print 'After recursion call, vsvt is ' + str(vsvt)
         EdgeInstance.vs = vsvt[0]
         EdgeInstance.vt = vsvt[1]
-        
-    
     # if direction == 0
     if EdgeInstance.direction == 0:
         # (REFSF=k(vs), vt)
@@ -137,7 +122,7 @@ def DETERMINE(y):
     else:
         # (vs,REFSF=k(vt))        
         refvsvt = [ int(EdgeInstance.vs) , int(REFSF(2)) ]
-    print 'Program writing ' + str(refvsvt) + ' to the file'
+        
     return refvsvt
     
 def readGraph(inputFile):
@@ -153,21 +138,17 @@ def readGraph(inputFile):
     if EdgeInstance.currentNumEdges == 0:
         EdgeInstance.initialNumEdges = edgeNum
     EdgeInstance.currentGraph = edges
-    #EdgeInstance.currentNumEdges = edgeNum
+    EdgeInstance.currentNumEdges = edgeNum
     
     
    
 # H(key) = ((key + 13) x 7)
 # h1(y) determines the ID x of a parent edge ex of the edge ey
 # Hash Function for U(0, (k-1)*|E|-1)
+
 # h1 :key->[0,...,(k-1)*|E|-1] 
 def h1(key):
     
-    print 'key ' + str(key)
-    print 'currentkval ' + str(EdgeInstance.currentKVal)
-    #===========================================================================
-    print 'calculating'
-    print 'h1 calculated as ' + str(H(key) % ((EdgeInstance.currentKVal-1) * (6)))
     return H(key) % ((EdgeInstance.currentKVal-1) * (6))
     
     
@@ -186,28 +167,11 @@ def REFSF(whichIndex):
     refIs = 0
     nodesOnLevel = EdgeInstance.initialNumNodes
     if whichIndex == 2:
-        print '\nindex' + str(whichIndex)
         refIs = int(EdgeInstance.vt)
-        print str(EdgeInstance.vs) + ' ' + str(EdgeInstance.vt)
-        print 'current num edges ' + str(EdgeInstance.currentNumEdges)
-        print 'Nodes on level ' + str(nodesOnLevel)
-        print 'Current k val: ' + str(EdgeInstance.currentKVal)
-        print 'initiallly refIs: ' + str(refIs)
-        print 'calculated' + str(refIs + int(nodesOnLevel* (EdgeInstance.currentKVal-1)))
-        
         return refIs + int(nodesOnLevel* (EdgeInstance.currentKVal-1))
     else:
-        print '\nindex' + str(whichIndex)
         refIs = int(EdgeInstance.vs)
-        print str(EdgeInstance.vs) + ' ' + str(EdgeInstance.vt)
-        print 'current num edges ' + str(EdgeInstance.currentNumEdges)
-        print 'Nodes on level ' + str(nodesOnLevel)
-        print 'Current k val: ' + str(EdgeInstance.currentKVal)
-        print 'initiallly refIs: ' + str(refIs)
-        print 'calculated ' + str(refIs + int(nodesOnLevel* (EdgeInstance.currentKVal-1)))
-    
         return refIs + int(nodesOnLevel* (EdgeInstance.currentKVal-1))
-    
     return refIs
 
 
@@ -232,9 +196,38 @@ def returnSF1ToOriginal():
     
 if __name__ == '__main__':
     returnSF1ToOriginal()
-    evograph() 
+    
+    print 'Running evograph.py\n'
+    
+    # print out original file 
+    print 'Original graph (Gsf=1) is: '
+    with open('../data/original.txt', 'r') as fin:
+        print fin.read()
+    
+    print '----------------------------------------\n'
+    
+    # Upscale to k=2
+    print 'Upscaling original graph from k=1 to k=2: '
+    evograph(2) 
     outputGraph()
     
+    print 'Compare this to the expected values in k=2 graph (../data/sf=2.txt):'
+    print '(tabs in this file used to more easily delineate between levels)'
+    with open('../data/sf=2.txt', 'r') as fin:
+        print fin.read()
+    
+    print '----------------------------------------\n'
+    
+    # Upscale to k=3
+    print 'Upscaling original graph from k=1 to k=3: '
+    returnSF1ToOriginal()
+    evograph(3)
+    outputGraph()
+    
+    print 'Compare this to the expected values in k=3 graph (../data/sf=3.txt):'
+    print '(tabs in this file used to more easily delineate between levels)'
+    with open('../data/sf=3.txt', 'r') as fin:
+        print fin.read()
     
 
     
