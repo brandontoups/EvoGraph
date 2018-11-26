@@ -1,0 +1,124 @@
+Script started on Sat Nov 24 12:39:35 2018
+[?1034hbrandon ~/desktop/18fa/data/evograph $ (B[mtree
+.
+├── RunningEvograph.txt
+├── evograph
+│   ├── code-images
+│   │   ├── 1actual.png
+│   │   ├── 2actual.png
+│   │   ├── 2expected.png
+│   │   ├── 3actual.png
+│   │   ├── 3expected.png
+│   │   ├── DETERMINE.png
+│   │   ├── EvoGraph.png
+│   │   ├── REFSF.png
+│   │   ├── WRITE.png
+│   │   ├── XEvoGraph.png
+│   │   └── h1h2H.png
+│   ├── data
+│   │   ├── DBLP.txt
+│   │   ├── original.txt
+│   │   ├── sf=1.txt
+│   │   ├── sf=2.txt
+│   │   ├── sf=3.txt
+│   │   └── soc-slashdot
+│   │       ├── readme.html
+│   │       └── soc-slashdot.mtx
+│   └── src
+│       └── evograph.py
+└── evograph.pdf
+
+5 directories, 21 files
+brandon ~/desktop/18fa/data/evograph $ (B[mcd evograph/src
+brandon ~/desktop/18fa/data/evograph/evograph/src $ (B[mls
+evograph.py
+brandon ~/desktop/18fa/data/evograph/evograph/src $ (B[mpython evograph.py
+Running evograph.py
+
+Original graph (Gsf=1) is: 
+0	1	#e0
+0	2	#e1
+1	2	#e2
+2	3	#e3
+2	4	#e4
+3	4	#e5
+
+----------------------------------------
+
+Upscaling original graph from k=1 to k=2: 
+0	1	#e0
+0	2	#e1
+1	2	#e2
+2	3	#e3
+2	4	#e4
+3	4	#e5
+0	7	#e6
+6	2	#e7
+2	8	#e8
+7	4	#e9
+3	9	#e10
+5	1	#e11
+
+Compare this to the expected values in k=2 graph (../data/sf=2.txt):
+(tabs in this file used to more easily delineate between levels)
+0	1	#e0
+0	2	#e1
+1	2	#e2
+2	3	#e3
+2	4	#e4
+3	4	#e5
+0	7		#e6
+6	2		#e7
+2	8		#e8
+7	4		#e9
+3	9		#e10
+5	1		#e11
+
+
+----------------------------------------
+
+Upscaling original graph from k=1 to k=3: 
+0	1	#e0
+0	2	#e1
+1	2	#e2
+2	3	#e3
+2	4	#e4
+3	4	#e5
+0	7	#e6
+6	2	#e7
+2	8	#e8
+7	4	#e9
+3	9	#e10
+5	1	#e11
+2	33	#e12
+11	2	#e13
+3	34	#e14
+12	4	#e15
+20	1	#e16
+0	22	#e17
+
+Compare this to the expected values in k=3 graph (../data/sf=3.txt):
+(tabs in this file used to more easily delineate between levels)
+0	1	#e0
+0	2	#e1
+1	2	#e2
+2	3	#e3
+2	4	#e4
+3	4	#e5
+0	7		#e6
+6	2		#e7
+2	8		#e8
+7	4		#e9
+3	9		#e10
+5	1		#e11
+6	12			#e12
+11	2			#e13
+7	14			#e14
+12	4			#e15
+5	11			#e16
+10	7			#e17
+
+brandon ~/desktop/18fa/data/evograph/evograph/src $ (B[mexit
+exit
+
+Script done on Sat Nov 24 12:39:55 2018
