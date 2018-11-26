@@ -1,0 +1,78 @@
+Script started on Sun Nov 25 21:16:19 2018
+[?1034hbrandon ~/desktop/files/18fa/data/evograph $ (B[mtree
+.
+├── evograph
+│   ├── analysis
+│   │   ├── complexity.xlsx
+│   │   ├── degreeDistribution.pdf
+│   │   └── degreeDistribution.xlsx
+│   ├── code-images
+│   │   ├── 1actual.png
+│   │   ├── 2actual.png
+│   │   ├── 2expected.png
+│   │   ├── 3actual.png
+│   │   ├── 3expected.png
+│   │   ├── DETERMINE.png
+│   │   ├── EvoGraph.png
+│   │   ├── REFSF.png
+│   │   ├── WRITE.png
+│   │   ├── XEvoGraph.png
+│   │   └── h1h2H.png
+│   ├── data
+│   │   ├── original.txt
+│   │   ├── sf=1.txt
+│   │   ├── sf=2.txt
+│   │   └── sf=3.txt
+│   └── src
+│       └── evograph.py
+├── evograph.pdf
+├── executionScripts
+│   └── RunningEvograph.txt
+└── timeComplexity.txt
+
+6 directories, 22 files
+brandon ~/desktop/files/18fa/data/evograph $ (B[mcd evograph[K[K[K[K[K[K[K[K[K[Kdsr[K[K src
+bash: cd: src: No such file or directory
+brandon ~/desktop/files/18fa/data/evograph $ (B[mcd evg[Kograph
+brandon ~/desktop/files/18fa/data/evograph/evograph $ (B[mcd src
+brandon ~/desktop/files/18fa/data/evograph/evograph/src $ (B[mls
+evograph.py
+brandon ~/desktop/files/18fa/data/evograph/evograph/src $ (B[mpython evograph.py
+Running evograph.py with testing time complexity
+
+
+	------------------------------------------
+		Analyzing Time Complexity
+	------------------------------------------
+Running evograph(2) to test time complexity
+Run #1	took 2997 microseconds
+Run #2	took 1222 microseconds
+Run #3	took 1233 microseconds
+Run #4	took 1523 microseconds
+Run #5	took 2026 microseconds
+Run #6	took 2195 microseconds
+Run #7	took 1888 microseconds
+Run #8	took 1675 microseconds
+Run #9	took 1222 microseconds
+Run #10	took 1771 microseconds
+Total time executing 10 runs upscaling to k=2: 17752 microseconds
+Ave   time executing 10 runs upscaling to k=2: 1775  microseconds
+
+Running evograph(3) to test time complexity
+Run #1	took 4232 microseconds
+Run #2	took 17003 microseconds
+Run #3	took 2959 microseconds
+Run #4	took 8357 microseconds
+Run #5	took 2178 microseconds
+Run #6	took 1899 microseconds
+Run #7	took 2920 microseconds
+Run #8	took 3007 microseconds
+Run #9	took 13665 microseconds
+Run #10	took 7773 microseconds
+Total time executing 10 runs upscaling to k=3: 63993 microseconds
+Ave   time executing 10 runs upscaling to k=3: 6399  microseconds
+
+brandon ~/desktop/files/18fa/data/evograph/evograph/src $ (B[mexit
+exit
+
+Script done on Sun Nov 25 21:16:45 2018
