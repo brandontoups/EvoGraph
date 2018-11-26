@@ -69,20 +69,20 @@ class EdgeInstance(object):
 #     (vs,vt) <- DETERMINE(ey);
 #     WRITE (vs , vt );
 def evograph(kValToUpscaleTo):
-    readGraph('../data/sf=1.txt')
+    readGraph('../data/slashdot.txt')
 
     EdgeInstance.initialKVal = kValToUpscaleTo
     EdgeInstance.initialNumNodes = EdgeInstance.initialNumEdges - 1
     rangeEdges = EdgeInstance.initialNumEdges
     maxNumEdges = EdgeInstance.initialKVal * rangeEdges
     for EdgeInstance.currentNumEdges in range(EdgeInstance.initialNumEdges, maxNumEdges):
-        readGraph('../data/sf=1.txt')
+        readGraph('../data/slashdot.txt')
         vsvt = DETERMINE(EdgeInstance.currentNumEdges)
         WRITE(vsvt, EdgeInstance.currentNumEdges)
     
         
 def WRITE(refvsvt, y):
-    with open('../data/sf=1.txt','a') as openFile:
+    with open('../data/slashdot.txt','a') as openFile:
         openFile.write( str(refvsvt[0]) + '\t' + str(refvsvt[1])  + '\t#e' + str(y) + '\n')
 
 
@@ -154,7 +154,7 @@ def readGraph(inputFile):
 # h1 :key->[0,...,(k-1)*|E|-1] 
 def h1(key):
     
-    return H(key) % ((EdgeInstance.currentKVal-1) * (6))
+    return H(key) % ((EdgeInstance.currentKVal-1) * (EdgeInstance.initialNumEdges))
     
     
 # h2(y) determines a direction of the edge ey (direction 0 means towards 
@@ -182,14 +182,14 @@ def REFSF(whichIndex):
 
 
 def outputGraph():
-    with open('../data/sf=1.txt', 'r') as fin:
+    with open('../data/slashdot.txt', 'r') as fin:
         print fin.read()
 
 def returnSF1ToOriginal():
     # opens original file
-    file1 = open("../data/original.txt" , "r")
+    file1 = open("../data/originalSlash.txt" , "r")
     # opens new file
-    file2 = open("../data/sf=1.txt" , "w")
+    file2 = open("../data/slashDot.txt" , "w")
     #for each line in old file
     for line in file1:
         #write that line to the new file
@@ -236,51 +236,64 @@ def runtimek3():
 
     
 if __name__ == '__main__':
-    returnSF1ToOriginal()
+    #returnSF1ToOriginal()
     
     print 'Running evograph.py\n'
     
     # print out original file 
     print 'Original graph (Gsf=1) is: '
-    with open('../data/original.txt', 'r') as fin:
+    with open('../data/originalSlash.txt', 'r') as fin:
         print fin.read()
     
     print '----------------------------------------\n'
     
     # Upscale to k=2
     print 'Upscaling original graph from k=1 to k=2: '
-    evograph(2) 
+
+    start = datetime.datetime.now()
+    evograph(2)
+    finish = datetime.datetime.now()
+    executionTime = (finish - start).microseconds    
+    print 'Execution of evograph(2) finished in ' + str(executionTime) + ' microseconds.'
+    print '\nNow outputting upscaled graph: '
     outputGraph()
     
-    print 'Compare this to the expected values in k=2 graph (../data/sf=2.txt):'
-    print '(tabs in this file used to more easily delineate between levels)'
-    with open('../data/sf=2.txt', 'r') as fin:
-        print fin.read()
+    #===========================================================================
+    # print 'Compare this to the expected values in k=2 graph (../data/sf=2.txt):'
+    # print '(tabs in this file used to more easily delineate between levels)'
+    # with open('../data/sf=2.txt', 'r') as fin:
+    #     print fin.read()
+    # 
+    # print '----------------------------------------\n'
+    #===========================================================================
+    #===========================================================================
+    # 
+    # # Upscale to k=3
+    # print 'Upscaling original graph from k=1 to k=3: '
+    # returnSF1ToOriginal()
+    # evograph(3)
+    # outputGraph()
+    # 
+    # print 'Compare this to the expected values in k=3 graph (../data/sf=3.txt):'
+    # print '(tabs in this file used to more easily delineate between levels)'
+    # with open('../data/sf=3.txt', 'r') as fin:
+    #     print fin.read()
+    # 
+    # returnSF1ToOriginal()
+    #===========================================================================
     
-    print '----------------------------------------\n'
-    
-    # Upscale to k=3
-    print 'Upscaling original graph from k=1 to k=3: '
-    returnSF1ToOriginal()
-    evograph(3)
-    outputGraph()
-    
-    print 'Compare this to the expected values in k=3 graph (../data/sf=3.txt):'
-    print '(tabs in this file used to more easily delineate between levels)'
-    with open('../data/sf=3.txt', 'r') as fin:
-        print fin.read()
-    
-    returnSF1ToOriginal()
-    
-    
-    #Below is used to analyze time complexity 
-    returnSF1ToOriginal()
-    print '\n\nNow testing time complexity. Averaging multiple runs.'
-      
-    # Runtime time complexity analysis
-    print '\t------------------------------------------'
-    print '\t\tAnalyzing Time Complexity'
-    print '\t------------------------------------------'
-    runtimek2()
-     
-    runtimek3()
+    #===========================================================================
+    # 
+    # 
+    # #Below is used to analyze time complexity 
+    # returnSF1ToOriginal()
+    # print '\n\nNow testing time complexity. Averaging multiple runs.'
+    #   
+    # # Runtime time complexity analysis
+    # print '\t------------------------------------------'
+    # print '\t\tAnalyzing Time Complexity'
+    # print '\t------------------------------------------'
+    # runtimek2()
+    #  
+    # runtimek3()
+    #===========================================================================
