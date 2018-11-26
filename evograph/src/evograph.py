@@ -5,7 +5,7 @@ Created on Oct 30, 2018
 '''
 
 import datetime
-import math
+from multiprocessing import Pool
 # Algorithm 1 EvoGraph
 # Input G = (V, E) // original graph
 #       k // scale factor
@@ -75,10 +75,15 @@ def evograph(kValToUpscaleTo):
     EdgeInstance.initialNumNodes = EdgeInstance.initialNumEdges - 1
     rangeEdges = EdgeInstance.initialNumEdges
     maxNumEdges = EdgeInstance.initialKVal * rangeEdges
-    for EdgeInstance.currentNumEdges in range(EdgeInstance.initialNumEdges, maxNumEdges):
-        readGraph('../data/sf=1.txt')
-        vsvt = DETERMINE(EdgeInstance.currentNumEdges)
-        WRITE(vsvt, EdgeInstance.currentNumEdges)
+    
+    p = Pool(1)
+    iterRange = list(range(EdgeInstance.initialNumEdges, maxNumEdges))
+    p.map(evoPar, iterRange)
+
+def evoPar(currentNumEdges):
+    readGraph('../data/sf=1.txt')
+    vsvt = DETERMINE(currentNumEdges)
+    WRITE(vsvt, currentNumEdges)
     
         
 def WRITE(refvsvt, y):
@@ -271,7 +276,7 @@ if __name__ == '__main__':
         print fin.read()
     
     returnSF1ToOriginal()
-    
+
     
     #Below is used to analyze time complexity 
     returnSF1ToOriginal()
