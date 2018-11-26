@@ -102,10 +102,12 @@ def DETERMINE(y):
     # next k value if multiple of initial number of edges
     if EdgeInstance.currentNumEdges == EdgeInstance.initialNumEdges*EdgeInstance.currentKVal:
         EdgeInstance.currentKVal+=1
+        
+    if (EdgeInstance.currentKVal != int(y/EdgeInstance.initialNumEdges) + 1):
+        EdgeInstance.currentKVal = int(y/EdgeInstance.initialNumEdges) + 1
     # x ~ U(0, (k-1)*|E|-1)
     EdgeInstance.x = h1(y)
-    # direction ~ U(0,1)
-    EdgeInstance.direction = h2(y)
+    
     # if x < |E|:
     if EdgeInstance.x < EdgeInstance.initialNumEdges:
         # (vs,vt) = ex        
@@ -114,10 +116,12 @@ def DETERMINE(y):
     else:
         # (vs,vt) = DETERMINE(ex)    
         vsvt = DETERMINE(EdgeInstance.x)
+        EdgeInstance.currentKVal += 1 
         EdgeInstance.vs = vsvt[0]
         EdgeInstance.vt = vsvt[1]
     # if direction == 0
-    if EdgeInstance.direction == 0:
+    # direction ~ U(0,1)
+    if h2(y) == 0:
         # (REFSF=k(vs), vt)
         refvsvt = [ int(REFSF(1)), int(EdgeInstance.vt) ]
     else:
@@ -197,7 +201,7 @@ def returnSF1ToOriginal():
     
     
 def runtimek2():
-    print 'Running evograph(2) to test time complexity of a 2x upscale'
+    print 'Running evograph(2) on sf=1.txt to test time complexity of a 2x upscale.'
     k2TimeTotal = 0
     numExecutions = 10 
     iterationTime = 0
@@ -214,7 +218,7 @@ def runtimek2():
     print 'Ave   time executing ' + str(iteration+1) + ' runs upscaling to k=2: ' + str(k2TimeTotal / (iteration+1)) + '  microseconds\n'
      
 def runtimek3():
-    print 'Running evograph(3) to test time complexity of a 3x upscale.'
+    print 'Running evograph(3) on sf=1.txt to test time complexity of a 3x upscale.'
     k2TimeTotal = 0
     numExecutions = 10 
     iterationTime = 0
