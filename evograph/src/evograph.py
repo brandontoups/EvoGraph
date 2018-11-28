@@ -1,6 +1,6 @@
 '''
 Created on Oct 30, 2018
-@authors: Brandon Toups
+@authors: Brandon Toups, Evan Kiser
 '''
 
 import datetime
