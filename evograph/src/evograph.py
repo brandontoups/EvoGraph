@@ -116,7 +116,8 @@ def DETERMINE(y):
     else:
         # (vs,vt) = DETERMINE(ex)    
         vsvt = DETERMINE(EdgeInstance.x)
-        EdgeInstance.currentKVal += 1 
+        if (EdgeInstance.currentKVal != int(y / EdgeInstance.initialNumEdges) + 1):
+            EdgeInstance.currentKVal = int(y / EdgeInstance.initialNumEdges) + 1
         EdgeInstance.vs = vsvt[0]
         EdgeInstance.vt = vsvt[1]
     # if direction == 0
