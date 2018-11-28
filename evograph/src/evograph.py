@@ -1,6 +1,5 @@
 '''
 Created on Oct 30, 2018
-
 @authors: Brandon Toups
 '''
 
@@ -116,7 +115,8 @@ def DETERMINE(y):
     else:
         # (vs,vt) = DETERMINE(ex)    
         vsvt = DETERMINE(EdgeInstance.x)
-        EdgeInstance.currentKVal += 1 
+        if (EdgeInstance.currentKVal != int(y / EdgeInstance.initialNumEdges) + 1):
+            EdgeInstance.currentKVal = int(y / EdgeInstance.initialNumEdges) + 1
         EdgeInstance.vs = vsvt[0]
         EdgeInstance.vt = vsvt[1]
     # if direction == 0
@@ -183,7 +183,7 @@ def REFSF(whichIndex):
 
 def outputGraph():
     with open('../data/sf=1.txt', 'r') as fin:
-        print fin.read()
+        print (fin.read())
 
 def returnSF1ToOriginal():
     # opens original file
@@ -201,7 +201,7 @@ def returnSF1ToOriginal():
     
     
 def runtimek2():
-    print 'Running evograph(2) on sf=1.txt to test time complexity of a 2x upscale.'
+    print ('Running evograph(2) on sf=1.txt to test time complexity of a 2x upscale.')
     k2TimeTotal = 0
     numExecutions = 10 
     iterationTime = 0
@@ -211,76 +211,94 @@ def runtimek2():
         finishK2 = datetime.datetime.now()
         returnSF1ToOriginal()
         iterationTime = (finishK2 - startK2).microseconds
-        print 'Run #' + str(iteration + 1) + '\ttook ' + str(iterationTime) + ' microseconds' 
+        print ('Run #' + str(iteration + 1) + '\ttook ' + str(iterationTime) + ' microseconds')
         k2TimeTotal += iterationTime
          
-    print 'Total time executing ' + str(iteration+1) + ' runs upscaling to k=2: ' + str(k2TimeTotal) + ' microseconds' 
-    print 'Ave   time executing ' + str(iteration+1) + ' runs upscaling to k=2: ' + str(k2TimeTotal / (iteration+1)) + '  microseconds\n'
+    print ('Total time executing ' + str(iteration+1) + ' runs upscaling to k=2: ' + str(k2TimeTotal) + ' microseconds')
+    print ('Ave   time executing ' + str(iteration+1) + ' runs upscaling to k=2: ' + str(k2TimeTotal / (iteration+1)) + '  microseconds\n')
      
 def runtimek3():
-    print 'Running evograph(3) on sf=1.txt to test time complexity of a 3x upscale.'
-    k2TimeTotal = 0
+    print ('Running evograph(3) on sf=1.txt to test time complexity of a 3x upscale.')
+    k3TimeTotal = 0
     numExecutions = 10 
     iterationTime = 0
     for iteration in range(0,numExecutions):
-        startK2 = datetime.datetime.now()
+        startK3 = datetime.datetime.now()
         evograph(3)
-        finishK2 = datetime.datetime.now()
+        finishK3 = datetime.datetime.now()
         returnSF1ToOriginal()
-        iterationTime = (finishK2 - startK2).microseconds
-        print 'Run #' + str(iteration + 1) + '\ttook ' + str(iterationTime) + ' microseconds' 
-        k2TimeTotal += iterationTime
+        iterationTime = (finishK3 - startK3).microseconds
+        print ('Run #' + str(iteration + 1) + '\ttook ' + str(iterationTime) + ' microseconds')
+        k3TimeTotal += iterationTime
          
-    print 'Total time executing ' + str(iteration+1) + ' runs upscaling to k=3: ' + str(k2TimeTotal) + ' microseconds' 
-    print 'Ave   time executing ' + str(iteration+1) + ' runs upscaling to k=3: ' + str(k2TimeTotal / (iteration+1)) + '  microseconds\n'
+    print ('Total time executing ' + str(iteration+1) + ' runs upscaling to k=3: ' + str(k3TimeTotal) + ' microseconds')
+    print ('Ave   time executing ' + str(iteration+1) + ' runs upscaling to k=3: ' + str(k3TimeTotal / (iteration+1)) + '  microseconds\n')
 
+def runtimek4():
+    print ('Running evograph(4) on sf=1.txt to test time complexity of a 4x upscale.')
+    k4TimeTotal = 0
+    numExecutions = 10 
+    iterationTime = 0
+    for iteration in range(0,numExecutions):
+        startK4 = datetime.datetime.now()
+        evograph(4)
+        finishK4 = datetime.datetime.now()
+        returnSF1ToOriginal()
+        iterationTime = (finishK4 - startK4).microseconds
+        print ('Run #' + str(iteration + 1) + '\ttook ' + str(iterationTime) + ' microseconds')
+        k4TimeTotal += iterationTime
+         
+    print ('Total time executing ' + str(iteration+1) + ' runs upscaling to k=4: ' + str(k4TimeTotal) + ' microseconds')
+    print ('Ave   time executing ' + str(iteration+1) + ' runs upscaling to k=4: ' + str(k4TimeTotal / (iteration+1)) + '  microseconds\n')
     
 if __name__ == '__main__':
     returnSF1ToOriginal()
     
-    print 'Running evograph.py\n'
+    print ('Running evograph.py\n')
     
     # print out original file 
-    print 'Original graph (Gsf=1) is: '
+    print ('Original graph (Gsf=1) is: ')
     with open('../data/original.txt', 'r') as fin:
-        print fin.read()
+        print (fin.read())
     
-    print '----------------------------------------\n'
+    print ('----------------------------------------\n')
     
     # Upscale to k=2
-    print 'Upscaling original graph from k=1 to k=2: '
+    print ('Upscaling original graph from k=1 to k=2: ')
     evograph(2) 
     outputGraph()
     
-    print 'Compare this to the expected values in k=2 graph (../data/sf=2.txt):'
-    print '(tabs in this file used to more easily delineate between levels)'
+    print ('Compare this to the expected values in k=2 graph (../data/sf=2.txt):')
+    print ('(tabs in this file used to more easily delineate between levels)')
     with open('../data/sf=2.txt', 'r') as fin:
-        print fin.read()
+        print (fin.read())
     
-    print '----------------------------------------\n'
+    print ('----------------------------------------\n')
     
     # Upscale to k=3
-    print 'Upscaling original graph from k=1 to k=3: '
+    print ('Upscaling original graph from k=1 to k=3: ')
     returnSF1ToOriginal()
     evograph(3)
     outputGraph()
     
-    print 'Compare this to the expected values in k=3 graph (../data/sf=3.txt):'
-    print '(tabs in this file used to more easily delineate between levels)'
+    print ('Compare this to the expected values in k=3 graph (../data/sf=3.txt):')
+    print ('(tabs in this file used to more easily delineate between levels)')
     with open('../data/sf=3.txt', 'r') as fin:
-        print fin.read()
+        print (fin.read())
     
     returnSF1ToOriginal()
     
     
     #Below is used to analyze time complexity 
     returnSF1ToOriginal()
-    print '\n\nNow testing time complexity. Averaging multiple runs.'
+    print ('\n\nNow testing time complexity. Averaging multiple runs.')
       
     # Runtime time complexity analysis
-    print '\t------------------------------------------'
-    print '\t\tAnalyzing Time Complexity'
-    print '\t------------------------------------------'
+    print ('\t------------------------------------------')
+    print ('\t\tAnalyzing Time Complexity')
+    print ('\t------------------------------------------')
     runtimek2()
      
     runtimek3()
+    
+    runtimek4()
