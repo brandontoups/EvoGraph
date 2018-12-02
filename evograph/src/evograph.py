@@ -97,7 +97,6 @@ def parallel(fileToUpscale, kValToUpscaleTo, processes):
         p.close()
     
     elif fileToUpscale == '../data/toy.txt':
-        print 'HERERERR'
         start = datetime.datetime.now()
         p.map(EvoGraphToy, iterRange)
         finish = datetime.datetime.now()
@@ -355,17 +354,41 @@ if __name__ == '__main__':
     # Various upscale actions taken on sf=1.txt.
     #parallelSF1()    
     
-    fileToUpscale = '../data/toy.txt'
+    #fileToUpscale = '../data/toy.txt'
     # Below lines for testing execution time 
-    numberOfThreads = 20
-    kValue = 2
-    runtime(fileToUpscale, kValue, numberOfThreads)
+    #numberOfThreads = 20
+    #kValue = 2
+    #runtime(fileToUpscale, kValue, numberOfThreads)
     
-    # running parallel without runtimek2
+    # running parallel without runtime()
     # parallel(fileToUpscale, kValue, numberOfThreads)
-    parallel('../data/toy.txt', 2, 2000)
+    print 'Running upscale to k=2 with 1    thread(s)'
+    parallel('../data/toy.txt', 2, 1)
+    print 'Running upscale to k=2 with 2    thread(s)'
+    parallel('../data/toy.txt', 2, 2) 
+    print 'Running upscale to k=2 with 10   thread(s)'
+    parallel('../data/toy.txt', 2, 10)
+    print 'Running upscale to k=2 with 50   thread(s)'
+    parallel('../data/toy.txt', 2, 50)
+    print 'Running upscale to k=2 with 100  thread(s)'
+    parallel('../data/toy.txt', 2, 100)
+    print 'Running upscale to k=2 with 300  thread(s)'
+    parallel('../data/toy.txt', 2, 300)
+    print 'Running upscale to k=2 with 500  thread(s)'
+    parallel('../data/toy.txt', 2, 500)
+    print 'Running upscale to k=2 with 1000 thread(s)'
+    parallel('../data/toy.txt', 2, 1000)
+    #print 'Running upscale to k=2 with 2000 thread(s)'
+    #parallel('../data/toy.txt', 2, 2000)
+        
+    
+    
+    
     
     
     
     print 'Done'
+       
+       
+       
        
