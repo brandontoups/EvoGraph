@@ -6,6 +6,7 @@ Created on Oct 30, 2018
 import datetime
 from multiprocessing import Pool
 import sys
+from src.evograph import fileToUpscale
 
 # Algorithm 1 EvoGraph
 # Input G = (V, E) // original graph
@@ -336,13 +337,6 @@ def runtime(fileToUpscale, kValue, numberOfThreads, numIterations):
     iterationTime = 0
     for iteration in range(0,numExecutions):
         iterationTime += (parallel(fileToUpscale, kValue, numberOfThreads)).total_seconds()     
-
-    #===========================================================================
-    # if (fileToUpscale == '../data/sf=1.txt'):
-    #     print 'Total execution time:   ' + str(iterationTime) + ' microseconds for ' + str(iteration + 1) + ' iteration(s)'
-    #     print 'Average execution time: ' + str(iterationTime / (iteration+1) )
-    #     print '\n'
-    #===========================================================================
     
     print 'Total execution time:   ' + str(iterationTime) + ' seconds for ' + str(iteration + 1) + ' iteration(s)'
     print 'Average execution time: ' + str(iterationTime / (iteration+1) )
@@ -380,32 +374,30 @@ def timingSF1():
     # k=2 ; threads=64; iterations=5
     runtime(fileToUpscale, kValue, 64, numIterations)
     
-    # k=2 ; threads=64; iterations=5
+    # k=2 ; threads=100; iterations=5
     runtime(fileToUpscale, kValue, 100, numIterations)
     
-    # k=2 ; threads=64; iterations=5
+    # k=2 ; threads=110; iterations=5
     runtime(fileToUpscale, kValue, 110, numIterations)
     
-    # k=2 ; threads=64; iterations=5
+    # k=2 ; threads=128; iterations=5
     runtime(fileToUpscale, kValue, 128, numIterations)
     
-    # k=2 ; threads=64; iterations=5
+    # k=2 ; threads=150; iterations=5
     runtime(fileToUpscale, kValue, 150, numIterations)
     
-    # k=2 ; threads=64; iterations=5
+    # k=2 ; threads=200; iterations=5
     runtime(fileToUpscale, kValue, 200, numIterations)
     
-    # k=2 ; threads=64; iterations=5
+    # k=2 ; threads=250; iterations=5
     runtime(fileToUpscale, kValue, 250, numIterations)
     
-    # k=2 ; threads=64; iterations=5
+    # k=2 ; threads=300; iterations=5
     runtime(fileToUpscale, kValue, 300, numIterations)
     
-    # k=2 ; threads=64; iterations=5
+    # k=2 ; threads=400; iterations=5
     runtime(fileToUpscale, kValue, 400, numIterations)
-    
-    
-    
+
     
     print '----------------------------------------'
     print 'Now running timing tests on k=3 upscale'
@@ -516,14 +508,102 @@ def timingSF1():
     
     
 def timingToy():
+    print '----------------------------------------'
+    print 'Now running timing tests on k=2 upscale'
+    print '----------------------------------------\n\n'
+    
     fileToUpscale = '../data/toy.txt'
     # Below lines for testing execution time 
-    numberOfThreads = 20
+    numberOfThreads = 1
     kValue = 2
-    numIterations = 1
+    numIterations = 5
+    # k=2 ; threads=1 ; iterations=5
     runtime(fileToUpscale, kValue, numberOfThreads, numIterations)
-    runtime(fileToUpscale, kValue, numberOfThreads, numIterations)
+    
+    # k=2 ; threads=2 ; iterations=5
+    runtime(fileToUpscale, kValue, 2,  numIterations)
+    
+    # k=2 ; threads=8 ; iterations=5
+    runtime(fileToUpscale, kValue, 8,  numIterations)
+    
+    # k=2 ; threads=100; iterations=5
+    runtime(fileToUpscale, kValue, 100, numIterations)
+    
+    # k=2 ; threads=200; iterations=5
+    runtime(fileToUpscale, kValue, 200, numIterations)
+    
+    # k=2 ; threads=250; iterations=5
+    runtime(fileToUpscale, kValue, 250, numIterations)
+    
+    # k=2 ; threads=300; iterations=5
+    runtime(fileToUpscale, kValue, 300, numIterations)
+    
+    # k=2 ; threads=400; iterations=5
+    runtime(fileToUpscale, kValue, 400, numIterations)
 
+    # this is going to take long
+    # k=2 ; threads=400; iterations=1
+    runtime(fileToUpscale, kValue, 1000, 1)
+    
+    
+    print '----------------------------------------'
+    print 'Now running timing tests on k=3 upscale'
+    print '----------------------------------------\n\n'
+    fileToUpscale = '../data/toy.txt'
+    # Below lines for testing execution time 
+    numberOfThreads = 1
+    kValue = 3
+    numIterations = 5
+    # k=3 ; threads=1 ; iterations=5
+    runtime(fileToUpscale, kValue, numberOfThreads, numIterations)
+    
+    # k=3 ; threads=2 ; iterations=5
+    runtime(fileToUpscale, kValue, 2,  numIterations)
+    
+    # k=3 ; threads=8 ; iterations=5
+    runtime(fileToUpscale, kValue, 8,  numIterations)
+    
+    # k=3 ; threads=100; iterations=5
+    runtime(fileToUpscale, kValue, 100, numIterations)
+    
+    # k=3 ; threads=200; iterations=5
+    runtime(fileToUpscale, kValue, 200, numIterations)
+    
+    # k=3 ; threads=250; iterations=5
+    runtime(fileToUpscale, kValue, 250, numIterations)
+    
+    # k=3 ; threads=300; iterations=5
+    runtime(fileToUpscale, kValue, 300, numIterations)
+    
+    # k=3 ; threads=400; iterations=3
+    runtime(fileToUpscale, kValue, 400, 3)
+
+    # this is going to take long
+    # k=3 ; threads=400; iterations=1
+    runtime(fileToUpscale, kValue, 1000, 1)
+
+
+    
+def upscaleToy128x():
+    print '----------------------------------------'
+    print 'Now running timing tests on k=128 upscale'
+    print '----------------------------------------\n\n'
+    fileToUpscale = '../data/toy.txt'
+    # Below lines for testing execution time 
+    numberOfThreads = 1
+    kValue = 128
+    numIterations = 5
+    # k=128 ; threads=1 ; iterations=3
+    runtime(fileToUpscale, kValue, numberOfThreads, numIterations)
+    
+    # k=128 ; threads=2 ; iterations=3
+    runtime(fileToUpscale, kValue, 2, 5)
+    
+    # k=128 ; threads=10 ; iterations=3
+    optimalNumThreads = 0
+    runtime(fileToUpscale, kValue, optimalNumThreads, 5)
+    
+    
 if __name__ == '__main__':
     print ('Running evograph.py\n')
     print 'After every single execution, for repeatability, the fileToUpscale that was upscaled '
@@ -546,6 +626,9 @@ if __name__ == '__main__':
     
     # running timing experiments on ../data/toy.txt
     #timingToy()
+    
+    # this is going to take the longest, reserving for only one execution
+    #upscaleToy128x()
     
     print 'Finished.'
        
