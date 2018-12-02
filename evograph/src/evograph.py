@@ -1,6 +1,5 @@
 '''
 Created on Oct 30, 2018
-
 @authors: Brandon Toups
 '''
 
@@ -64,6 +63,13 @@ class EdgeInstance(object):
     currentKVal = 2
 
 
+# Algorithm 1 EvoGraph
+# Input G = (V, E) // original graph
+#       k          // scale factor
+# 
+# parallel for y in [|E|:k*|E|-1] do 
+#     (vs,vt) <- DETERMINE(ey);
+#     WRITE (vs , vt );
 def parallel(kValToUpscaleTo):
     readGraph('../data/sf=1.txt')
 
@@ -71,12 +77,14 @@ def parallel(kValToUpscaleTo):
     EdgeInstance.initialNumNodes = EdgeInstance.initialNumEdges - 1
     rangeEdges = EdgeInstance.initialNumEdges
     maxNumEdges = EdgeInstance.initialKVal * rangeEdges
-    
-    # parallelized for-loop using multiprocessing p.map() function
-    p = Pool(processes=15)
+        
+    # parallelized for-loop using multiprocessing functionality
+    p = Pool(processes=100)
     iterRange = list(range(EdgeInstance.initialNumEdges, maxNumEdges))
     p.map(EvoGraph, iterRange)
+    p.close()
 
+# What is inside the parallelized for loop
 def EvoGraph(currentNumEdges):
     readGraph('../data/sf=1.txt')
     vsvt = DETERMINE(currentNumEdges)
@@ -93,29 +101,29 @@ def parallelSF1():
     print 'Upscaling original graph from k=1 to k=2: '
     parallel(2)
     outputGraphSF1()
-    
+    returnSF1ToOriginal()
     print 'Compare this to the expected values in k=2 graph (../data/sf=2.txt):'
     print '(tabs in this file used to more easily delineate between levels)'
     with open('../data/sf=2.txt', 'r') as fin:
         print fin.read()
     print '----------------------------------------\n'
+
     
     # Upscale to k=3
     print 'Upscaling original graph from k=1 to k=3: '
     # resetting sf=1.txt to original  before running evograph again
-    returnSF1ToOriginal()
-    start = datetime.datetime.now()
     parallel(3)
-    finish = datetime.datetime.now()
-    timeToFinish = (finish - start).microseconds 
     outputGraphSF1()
-    print 'The time to finish is ' + str(timeToFinish)
-    
+    returnSF1ToOriginal()
+        
     print 'Compare this to the expected values in k=3 graph (../data/sf=3.txt):'
     print '(tabs in this file used to more easily delineate between levels)'
     with open('../data/sf=3.txt', 'r') as fin:
         print fin.read()
     returnSF1ToOriginal()
+    
+    
+    
         
 def WRITE(refvsvt, y):
     with open('../data/sf=1.txt','a') as openFile:
@@ -152,7 +160,8 @@ def DETERMINE(y):
     else:
         # (vs,vt) = DETERMINE(ex)    
         vsvt = DETERMINE(EdgeInstance.x)
-        EdgeInstance.currentKVal += 1 
+        if (EdgeInstance.currentKVal != int(y / EdgeInstance.initialNumEdges) + 1):
+            EdgeInstance.currentKVal = int(y / EdgeInstance.initialNumEdges) + 1
         EdgeInstance.vs = vsvt[0]
         EdgeInstance.vt = vsvt[1]
     # if direction == 0
@@ -190,7 +199,7 @@ def readGraph(inputFile):
 # h1 :key->[0,...,(k-1)*|E|-1] 
 def h1(key):
     
-    return H(key) % ((EdgeInstance.currentKVal-1) * (6))
+    return H(key) % ((EdgeInstance.currentKVal-1) * (EdgeInstance.initialNumEdges))
     
     
 # h2(y) determines a direction of the edge ey (direction 0 means towards 
@@ -219,11 +228,14 @@ def REFSF(whichIndex):
 
 def outputGraphSF1():
     with open('../data/sf=1.txt', 'r') as fin:
-        print fin.read()
+        print (fin.read())
+
 
 def returnSF1ToOriginal():
+    print 'For repeatability, the file sf=1.txt is now being returned to its original state'
     # opens original file
     file1 = open("../data/sf=1Original.txt" , "r")
+
     # opens new file
     file2 = open("../data/sf=1.txt" , "w")
     #for each line in old file
@@ -238,6 +250,7 @@ def returnSF1ToOriginal():
     
 def runtimek2():
     print 'Running parallel(2) on sf=1.txt to test time complexity of a 2x upscale.'
+
     k2TimeTotal = 0
     numExecutions = 10 
     iterationTime = 0
@@ -247,45 +260,73 @@ def runtimek2():
         finishK2 = datetime.datetime.now()
         returnSF1ToOriginal()
         iterationTime = (finishK2 - startK2).microseconds
-        print 'Run #' + str(iteration + 1) + '\ttook ' + str(iterationTime) + ' microseconds' 
+        print ('Run #' + str(iteration + 1) + '\ttook ' + str(iterationTime) + ' microseconds')
         k2TimeTotal += iterationTime
          
-    print 'Total time executing ' + str(iteration+1) + ' runs upscaling to k=2: ' + str(k2TimeTotal) + ' microseconds' 
-    print 'Ave   time executing ' + str(iteration+1) + ' runs upscaling to k=2: ' + str(k2TimeTotal / (iteration+1)) + '  microseconds\n'
+    print ('Total time executing ' + str(iteration+1) + ' runs upscaling to k=2: ' + str(k2TimeTotal) + ' microseconds')
+    print ('Ave   time executing ' + str(iteration+1) + ' runs upscaling to k=2: ' + str(k2TimeTotal / (iteration+1)) + '  microseconds\n')
      
 def runtimek3():
     print 'Running parallel(3) on sf=1.txt to test time complexity of a 3x upscale.'
-    k2TimeTotal = 0
+    k3TimeTotal = 0
     numExecutions = 10 
     iterationTime = 0
     for iteration in range(0,numExecutions):
-        startK2 = datetime.datetime.now()
+        startK3 = datetime.datetime.now()
         parallel(3)
-        finishK2 = datetime.datetime.now()
-        returnSF1ToOriginal()
-        iterationTime = (finishK2 - startK2).microseconds
-        print 'Run #' + str(iteration + 1) + '\ttook ' + str(iterationTime) + ' microseconds' 
-        k2TimeTotal += iterationTime
-         
-    print 'Total time executing ' + str(iteration+1) + ' runs upscaling to k=3: ' + str(k2TimeTotal) + ' microseconds' 
-    print 'Ave   time executing ' + str(iteration+1) + ' runs upscaling to k=3: ' + str(k2TimeTotal / (iteration+1)) + '  microseconds\n'
+        finishK3 = datetime.datetime.now()
 
+        returnSF1ToOriginal()
+        iterationTime = (finishK3 - startK3).microseconds
+        print ('Run #' + str(iteration + 1) + '\ttook ' + str(iterationTime) + ' microseconds')
+        k3TimeTotal += iterationTime
+         
+    print ('Total time executing ' + str(iteration+1) + ' runs upscaling to k=3: ' + str(k3TimeTotal) + ' microseconds')
+    print ('Ave   time executing ' + str(iteration+1) + ' runs upscaling to k=3: ' + str(k3TimeTotal / (iteration+1)) + '  microseconds\n')
+
+def runtimek4():
+    print ('Running parallel(4) on sf=1.txt to test time complexity of a 4x upscale.')
+    k4TimeTotal = 0
+    numExecutions = 10 
+    iterationTime = 0
+    for iteration in range(0,numExecutions):
+        startK4 = datetime.datetime.now()
+        parallel(4)
+        finishK4 = datetime.datetime.now()
+        returnSF1ToOriginal()
+        iterationTime = (finishK4 - startK4).microseconds
+        print ('Run #' + str(iteration + 1) + '\ttook ' + str(iterationTime) + ' microseconds')
+        k4TimeTotal += iterationTime
+         
+    print ('Total time executing ' + str(iteration+1) + ' runs upscaling to k=4: ' + str(k4TimeTotal) + ' microseconds')
+    print ('Ave   time executing ' + str(iteration+1) + ' runs upscaling to k=4: ' + str(k4TimeTotal / (iteration+1)) + '  microseconds\n')
     
+    
+    
+def outputOriginalSF1():
+    print ('Running evograph.py\n')
+    
+    # print out original file 
+    print ('Original graph (Gsf=1) is: ')
+    with open('../data/sf=1Original.txt', 'r') as fin:
+        print (fin.read())
+    
+    print ('----------------------------------------\n')
+
 if __name__ == '__main__':
     
+    # make sure that sf=1.txt is a clean, original before running
+    returnSF1ToOriginal()
     
-    print 'Running evograph.py\n'
+    # run evograph with a parallelized for loop
+    parallelSF1()
     
-    while True:
-        print 'Available actions\n1: Parallelized EvoGraph on sf=1.txt\n2: Regular EvoGraph\nq: quit: '
-        decisionInput = raw_input('Enter number of desired action -> ')
-        
-        if decisionInput == 'q':
-            print 'Exiting'
-            sys.exit(1)
-
-        if decisionInput == '1':
-            parallelSF1()
+    runtimek2()
+    runtimek3()
+    runtimek4()
+    
+    
+    
         
     # 
     # #Below is used to analyze time complexity 
