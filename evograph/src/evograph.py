@@ -328,7 +328,7 @@ def outputOriginalToy():
         print (fin.read())
     print ('----------------------------------------\n')  
     
-def runtimek2(fileToUpscale, kValue, numberOfThreads):
+def runtime(fileToUpscale, kValue, numberOfThreads):
     print 'Running parallel upscale on ' + fileToUpscale + ' to test time complexity of a 2x upscale.'
 
     k2TimeTotal = 0
@@ -348,7 +348,7 @@ if __name__ == '__main__':
     print 'of the memory-efficient edge attachment, wherein the edges are read from the '
     print 'graph, and subsequently, new edges being attached are added directly back into that fileToUpscale'
     
-    # make sure that sf=1.txt is a clean, original before running
+    # make sure that sf=1.txt, toy.txt is a clean, original before running
     returnSF1ToOriginal()
     returnToyToOriginal()
 
@@ -359,7 +359,11 @@ if __name__ == '__main__':
     # Below lines for testing execution time 
     numberOfThreads = 20
     kValue = 2
-    runtimek2(fileToUpscale, kValue, numberOfThreads)
+    runtime(fileToUpscale, kValue, numberOfThreads)
+    
+    # running parallel without runtimek2
+    # parallel(fileToUpscale, kValue, numberOfThreads)
+    parallel('../data/toy.txt', 2, 2000)
     
     
     
