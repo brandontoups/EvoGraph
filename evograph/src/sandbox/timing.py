@@ -42,7 +42,8 @@ start = datetime.datetime.now()
 #p.map(test, iterRange)
 time.sleep(2)
 finish = datetime.datetime.now()
-dif = (finish - start).seconds
+print finish - start
+dif = (finish - start).total_seconds()
 print dif
 
 print '-----------------'
