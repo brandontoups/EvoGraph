@@ -40,9 +40,9 @@ iterRange = list(range(0, 3))
 start = datetime.datetime.now() 
 #p = Pool(100)
 #p.map(test, iterRange)
-time.sleep(5)
+time.sleep(2)
 finish = datetime.datetime.now()
-dif = finish - start
+dif = (finish - start).seconds
 print dif
 
 print '-----------------'

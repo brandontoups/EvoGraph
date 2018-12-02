@@ -92,16 +92,16 @@ def parallel(fileToUpscale, kValToUpscaleTo, processes):
         start = datetime.datetime.now()
         p.map(EvoGraphSF1, iterRange)
         finish = datetime.datetime.now()
-        iterationTime = (finish - start).microseconds
-        print str(processes) + ' thread(s)\t' + 'Execution time: ' + str(iterationTime) + ' microseconds'
+        iterationTime = (finish - start)
+        print str(processes) + ' thread(s)\t' + 'Execution time: ' + str(iterationTime) 
         p.close()
     
     elif fileToUpscale == '../data/toy.txt':
         start = datetime.datetime.now()
         p.map(EvoGraphToy, iterRange)
         finish = datetime.datetime.now()
-        iterationTime = (finish - start).microseconds
-        print str(processes) + ' thread(s)\t' + 'Execution time: ' + str(iterationTime) + ' microseconds'
+        iterationTime = (finish - start)
+        print str(processes) + ' thread(s)\t' + 'Execution time: ' + str(iterationTime) 
         p.close()
         
     return iterationTime
@@ -328,18 +328,90 @@ def outputOriginalToy():
         print (fin.read())
     print ('----------------------------------------\n')  
     
-def runtimek2(fileToUpscale, kValue, numberOfThreads):
-    print 'Running parallel upscale on ' + fileToUpscale + ' to test time complexity of a 2x upscale.'
+def runtime(fileToUpscale, kValue, numberOfThreads, numIterations):
+    print 'Running parallel upscale on ' + fileToUpscale + ' to test time complexity of a ' + str(kValue) + 'x upscale.'
 
     k2TimeTotal = 0
-    numExecutions = 1 
+    numExecutions = numIterations 
     iterationTime = 0
     for iteration in range(0,numExecutions):
-        iterationTime += parallel(fileToUpscale, kValue, numberOfThreads)     
+        if (fileToUpscale == '../data/sf=1.txt'):
+            iterationTime += (parallel(fileToUpscale, kValue, numberOfThreads)).microseconds     
+        else:
+            iterationTime += (parallel(fileToUpscale, kValue, numberOfThreads)).seconds
 
-    print 'Total execution time:   ' + str(iterationTime) + ' microseconds for ' + str(iteration) + ' iteration(s)'
-    print 'Average execution time: ' + str(iterationTime / (iteration+1) )
+
+    if (fileToUpscale == '../data/sf=1.txt'):
+        print 'Total execution time:   ' + str(iterationTime) + ' microseconds for ' + str(iteration + 1) + ' iteration(s)'
+        print 'Average execution time: ' + str(iterationTime / (iteration+1) )
+        print '\n'
+    else:
+        print 'Total execution time:   ' + str(iterationTime) + ' seconds for ' + str(iteration + 1) + ' iteration(s)'
+        print 'Average execution time: ' + str(iterationTime / (iteration+1) )
+        print ''
     
+def timingSF1():
+    fileToUpscale = '../data/sf=1.txt'
+    # Below lines for testing execution time 
+    numberOfThreads = 1
+    kValue = 2
+    numIterations = 5
+    # k=2 ; threads=1 ; iterations=5
+    runtime(fileToUpscale, kValue, numberOfThreads, numIterations)
+    
+    # k=2 ; threads=2 ; iterations=5
+    runtime(fileToUpscale, kValue, 2,  numIterations)
+    
+    # k=2 ; threads=4 ; iterations=5
+    runtime(fileToUpscale, kValue, 4,  numIterations)
+    
+    # k=2 ; threads=8 ; iterations=5
+    runtime(fileToUpscale, kValue, 8,  numIterations)
+    
+    # k=2 ; threads=16; iterations=5
+    runtime(fileToUpscale, kValue, 16, numIterations)
+    
+    # k=2 ; threads=32; iterations=5
+    runtime(fileToUpscale, kValue, 32, numIterations)
+    
+    # k=2 ; threads=64; iterations=5
+    runtime(fileToUpscale, kValue, 64, numIterations)
+    
+    # k=2 ; threads=64; iterations=5
+    runtime(fileToUpscale, kValue, 100, numIterations)
+    
+    # k=2 ; threads=64; iterations=5
+    runtime(fileToUpscale, kValue, 110, numIterations)
+    
+    # k=2 ; threads=64; iterations=5
+    runtime(fileToUpscale, kValue, 128, numIterations)
+    
+    # k=2 ; threads=64; iterations=5
+    runtime(fileToUpscale, kValue, 150, numIterations)
+    
+    # k=2 ; threads=64; iterations=5
+    runtime(fileToUpscale, kValue, 200, numIterations)
+    
+    # k=2 ; threads=64; iterations=5
+    runtime(fileToUpscale, kValue, 250, numIterations)
+    
+    # k=2 ; threads=64; iterations=5
+    runtime(fileToUpscale, kValue, 300, numIterations)
+    
+    # k=2 ; threads=64; iterations=5
+    runtime(fileToUpscale, kValue, 400, numIterations)
+    
+    
+    
+    
+def timingToy():
+    fileToUpscale = '../data/toy.txt'
+    # Below lines for testing execution time 
+    numberOfThreads = 20
+    kValue = 2
+    numIterations = 1
+    runtime(fileToUpscale, kValue, numberOfThreads, numIterations)
+    runtime(fileToUpscale, kValue, numberOfThreads, numIterations)
 
 if __name__ == '__main__':
     print ('Running evograph.py\n')
@@ -353,17 +425,16 @@ if __name__ == '__main__':
     returnToyToOriginal()
 
     # Various upscale actions taken on sf=1.txt.
-    #upscaleGraph()    
-    
-    fileToUpscale = '../data/toy.txt'
-    # Below lines for testing execution time 
-    numberOfThreads = 20
-    kValue = 2
-    #runtimek2(fileToUpscale, kValue, numberOfThreads)
+    upscaleGraph()    
     
     
-    #print 'Running upscale to k=2 with 1    thread(s)'
-    #parallel(fileToUpscale, 2, 1)
+    print '\n\nNow running timing experiments on various datasets'
     
-    print 'Done'
+    # running timing experiments on ../data/sf=1.txt
+    timingSF1()
+    
+    # running timing experiments on ../data/toy.txt
+    #timingToy()
+    
+    print 'Finished.'
        

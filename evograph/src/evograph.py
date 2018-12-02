@@ -304,10 +304,10 @@ def outputOriginalSF1():
 
 if __name__ == '__main__':
     print ('Running evograph.py\n')
-    print 'After every single execution, for repeatability, the fileToUpscale that was upscaled '
+    print 'After every single execution, for repeatability, the file that was upscaled '
     print 'will be returned to its original state automatically. This is due to the nature'
     print 'of the memory-efficient edge attachment, wherein the edges are read from the '
-    print 'graph, and subsequently, new edges being attached are added directly back into that fileToUpscale'
+    print 'graph, and subsequently, new edges being attached are added directly back into that file'
     
     # make sure that sf=1.txt is a clean, original before running
     returnSF1ToOriginal()
