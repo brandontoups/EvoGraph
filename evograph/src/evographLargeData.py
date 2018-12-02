@@ -71,8 +71,8 @@ class EdgeInstance(object):
 # parallel for y in [|E|:k*|E|-1] do 
 #     (vs,vt) <- DETERMINE(ey);
 #     WRITE (vs , vt );
-def parallel(kValToUpscaleTo, processes):
-    readGraph('../data/toy.txt')
+def parallel(file, kValToUpscaleTo, processes):
+    readGraph('../data/' + file)
 
     EdgeInstance.initialKVal = kValToUpscaleTo
     EdgeInstance.initialNumNodes = EdgeInstance.initialNumEdges - 1
@@ -85,11 +85,28 @@ def parallel(kValToUpscaleTo, processes):
     else: 
         p = Pool()
     iterRange = list(range(EdgeInstance.initialNumEdges, maxNumEdges))
-    p.map(EvoGraph, iterRange)
-    p.close()
+    
+    # if we are upscaling sf=1.txt 
+    if file == '../data/sf=1.txt':
+        start = datetime.datetime.now()
+        p.map(EvoGraphSF1, iterRange)
+        finish = datetime.datetime.now()
+        iterationTime = (finish - start).microseconds
+        print str(processes) + ' thread(s)\t' + 'Execution time: ' + str(iterationTime) + 'microseconds'
+        p.close()
+    elif file == '../data/toy.txt':
+        start = datetime.datetime.now()
+        p.map(EvoGraph, iterRange)
+        finish = datetime.datetime.now()
+        iterationTime = (finish - start).seconds
+        print str(processes) + ' thread(s)\t' + 'Execution time: ' + str(iterationTime) + ' seconds'
+        p.close()
+
+    
+
 
 # What is inside the parallelized for loop
-def EvoGraph(currentNumEdges):
+def EvoGraphToy(currentNumEdges):
     readGraph('../data/toy.txt')
     vsvt = DETERMINE(currentNumEdges)
     WRITE(vsvt, currentNumEdges)
@@ -104,11 +121,7 @@ def parallelToy(kValue, processes=-1):
     #===========================================================================
     
     # Upscale to k=2
-    startK2 = datetime.datetime.now()
-    parallel(kValue, processes)
-    finishK2 = datetime.datetime.now()
-    iterationTime = (finishK2 - startK2).seconds
-    print str(processes) + ' thread(s)\t' + 'Execution time: ' + str(iterationTime) + ' seconds'
+    parallel('../data/toy.txt', kValue, processes)
     returnToyToOriginal()
         
 def WRITE(refvsvt, y):
@@ -250,6 +263,8 @@ if __name__ == '__main__':
     # make sure that sf=1.txt is a clean, original before running
     returnToyToOriginal()
     
+
+    
     print '----------------'
     print 'Upscaling from k=1 to k=2'
     # run evograph with a parallelized for loop
@@ -262,11 +277,17 @@ if __name__ == '__main__':
     #parallelToy(2,32)
     #parallelToy(2,64)
     #parallelToy(2,128)
-    #parallelToy(2,256)
+    #parallelToy(2,150)
+    parallelToy(file, 2,256)
+    #parallelToy(2,450)
     print 'now calling Pool() with no arguments'
-    parallelToy(2)
+    #parallelToy(2)
     # parallelToy(2,511)    
     #===========================================================================
+
+
+    parallelToy(3, 2)
+    
 
     print '----------------'
     

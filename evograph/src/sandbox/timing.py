@@ -29,11 +29,7 @@ import sys
 #pool.close()
 print '-----------------'
 
-for i in range(445,452):
-    try:
-        pool = Pool(processes=i)
-        pool.close()
-    except:
-        print str(i)
-        sys.exit(1)
+p = Pool(1000)
+
+print '-----------------'
         
