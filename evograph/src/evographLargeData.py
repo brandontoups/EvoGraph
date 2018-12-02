@@ -80,7 +80,10 @@ def parallel(kValToUpscaleTo, processes):
     maxNumEdges = EdgeInstance.initialKVal * rangeEdges
         
     # parallelized for-loop using multiprocessing functionality
-    p = Pool(processes=processes)
+    if processes != -1:
+        p = Pool(processes=processes)
+    else: 
+        p = Pool()
     iterRange = list(range(EdgeInstance.initialNumEdges, maxNumEdges))
     p.map(EvoGraph, iterRange)
     p.close()
@@ -91,7 +94,7 @@ def EvoGraph(currentNumEdges):
     vsvt = DETERMINE(currentNumEdges)
     WRITE(vsvt, currentNumEdges)
     
-def parallelToy(kValue, processes):
+def parallelToy(kValue, processes=-1):
     
     #===========================================================================
     # print 'Original graph (Gsf=1) is: ' # print out original file
@@ -251,15 +254,17 @@ if __name__ == '__main__':
     print 'Upscaling from k=1 to k=2'
     # run evograph with a parallelized for loop
     # parallel( kValue, numProcesses)
-    parallelToy(2,1)
-    parallelToy(2,2)
-    parallelToy(2,4)
+    #parallelToy(2,1)
+    #parallelToy(2,2)
+    #parallelToy(2,4)
     #parallelToy(2,8)
     #parallelToy(2,16)
-    parallelToy(2,32)
-    parallelToy(2,64)
-    parallelToy(2,128)
-    parallelToy(2,256)
+    #parallelToy(2,32)
+    #parallelToy(2,64)
+    #parallelToy(2,128)
+    #parallelToy(2,256)
+    print 'now calling Pool() with no arguments'
+    parallelToy(2)
     # parallelToy(2,511)    
     #===========================================================================
 
