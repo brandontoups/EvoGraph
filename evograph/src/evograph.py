@@ -98,7 +98,7 @@ def parallelSF1():
     print '----------------------------------------\n'
     
     # Upscale to k=2
-    print 'Upscaling original graph from k=1 to k=2: '
+    print 'Upscaling sf=1.txt graph from k=1 to k=2: '
     parallel(2)
     outputGraphSF1()
     returnSF1ToOriginal()
@@ -110,7 +110,7 @@ def parallelSF1():
 
     
     # Upscale to k=3
-    print 'Upscaling original graph from k=1 to k=3: '
+    print 'Upscaling sf=1.txt graph from k=1 to k=3: '
     # resetting sf=1.txt to original  before running evograph again
     parallel(3)
     outputGraphSF1()
@@ -119,6 +119,20 @@ def parallelSF1():
     print 'Compare this to the expected values in k=3 graph (../data/sf=3.txt):'
     print '(tabs in this file used to more easily delineate between levels)'
     with open('../data/sf=3.txt', 'r') as fin:
+        print fin.read()
+    returnSF1ToOriginal()
+    
+    
+    # Upscale to k=3
+    print 'Upscaling sf=1.txt graph from k=1 to k=4: '
+    # resetting sf=1.txt to original  before running evograph again
+    parallel(4)
+    outputGraphSF1()
+    returnSF1ToOriginal()
+        
+    print 'Compare this to the expected values in k=3 graph (../data/sf=3.txt):'
+    print '(tabs in this file used to more easily delineate between levels)'
+    with open('../data/sf=4.txt', 'r') as fin:
         print fin.read()
     returnSF1ToOriginal()
     
@@ -262,9 +276,11 @@ def runtimek2():
         iterationTime = (finishK2 - startK2).microseconds
         print ('Run #' + str(iteration + 1) + '\ttook ' + str(iterationTime) + ' microseconds')
         k2TimeTotal += iterationTime
+    
+
          
-    print ('Total time executing ' + str(iteration+1) + ' runs upscaling to k=2: ' + str(k2TimeTotal) + ' microseconds')
-    print ('Ave   time executing ' + str(iteration+1) + ' runs upscaling to k=2: ' + str(k2TimeTotal / (iteration+1)) + '  microseconds\n')
+    #print ('Total time executing ' + str(iteration+1) + ' runs upscaling to k=2: ' + str(k2TimeTotal) + ' microseconds')
+    #print ('Ave   time executing ' + str(iteration+1) + ' runs upscaling to k=2: ' + str(k2TimeTotal / (iteration+1)) + '  microseconds\n')
      
 def runtimek3():
     print 'Running parallel(3) on sf=1.txt to test time complexity of a 3x upscale.'
@@ -316,11 +332,11 @@ def outputOriginalSF1():
 if __name__ == '__main__':
     
     # make sure that sf=1.txt is a clean, original before running
+    
     returnSF1ToOriginal()
     
     # run evograph with a parallelized for loop
     parallelSF1()
-    
     runtimek2()
     runtimek3()
     runtimek4()
