@@ -93,15 +93,15 @@ def parallel(fileToUpscale, kValToUpscaleTo, processes):
         p.map(EvoGraphSF1, iterRange)
         finish = datetime.datetime.now()
         iterationTime = (finish - start).microseconds
-        print str(processes) + ' thread(s)\t' + 'Execution time: ' + str(iterationTime) + ' microseconds'
+        print str(processes) + ' thread(s)\t' + 'Execution time: ' + str(iterationTime) 
         p.close()
     
     elif fileToUpscale == '../data/toy.txt':
         start = datetime.datetime.now()
         p.map(EvoGraphToy, iterRange)
         finish = datetime.datetime.now()
-        iterationTime = (finish - start).microseconds
-        print str(processes) + ' thread(s)\t' + 'Execution time: ' + str(iterationTime) + ' microseconds'
+        iterationTime = (finish - start)
+        print str(processes) + ' thread(s)\t' + 'Execution time: ' + str(iterationTime) 
         p.close()
         
     return iterationTime
@@ -140,7 +140,7 @@ def parallelSF1():
     outputGraph('../data/sf=1.txt')
     returnSF1ToOriginal()
     print 'Compare the above upscale to the expected values in k=2 graph (../data/sf=2.txt) printed below:'
-    print '(Tabs in this fileToUpscale used to more easily delineate between the new edges inserted at this level)'
+    print '(Tabs in this file used to more easily delineate between the new edges inserted at this level)'
     with open('../data/sf=2.txt', 'r') as fin:
         print fin.read()
     print '----------------------------------------\n'
@@ -152,7 +152,7 @@ def parallelSF1():
     outputGraph('../data/sf=1.txt')
     returnSF1ToOriginal()
     print 'Compare the above upscale to the expected values in k=3 graph (../data/sf=3.txt) printed below:'
-    print '(Tabs in this fileToUpscale used to more easily delineate between the new edges inserted at this level)'
+    print '(Tabs in this file used to more easily delineate between the new edges inserted at this level)'
     with open('../data/sf=3.txt', 'r') as fin:
         print fin.read()
     print '----------------------------------------\n'
@@ -165,7 +165,7 @@ def parallelSF1():
     outputGraph('../data/sf=1.txt')
     returnSF1ToOriginal()
     print 'Compare the above upscale to the expected values in k=4 graph (../data/sf=4.txt) printed below:'
-    print '(Tabs in this fileToUpscale used to more easily delineate between the new edges inserted at this level)'
+    print '(Tabs in this file used to more easily delineate between the new edges inserted at this level)'
     with open('../data/sf=4.txt', 'r') as fin:
         print fin.read()
     print '----------------------------------------\n'
@@ -378,9 +378,8 @@ if __name__ == '__main__':
     parallel('../data/toy.txt', 2, 500)
     print 'Running upscale to k=2 with 1000 thread(s)'
     parallel('../data/toy.txt', 2, 1000)
-    #print 'Running upscale to k=2 with 2000 thread(s)'
-    #parallel('../data/toy.txt', 2, 2000)
-        
+    print 'Running upscale to k=2 with 2000 thread(s)'
+    parallel('../data/toy.txt', 2, 2000)
     
     
     

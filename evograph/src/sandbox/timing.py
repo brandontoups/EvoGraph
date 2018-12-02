@@ -27,9 +27,23 @@ import sys
 
 #pool = Pool(processes=451)
 #pool.close()
-print '-----------------'
 
-p = Pool(1000)
+
+
+def test(num):
+    print num
+    
+
+
+print '-----------------'
+iterRange = list(range(0, 3))
+start = datetime.datetime.now() 
+#p = Pool(100)
+#p.map(test, iterRange)
+time.sleep(5)
+finish = datetime.datetime.now()
+dif = finish - start
+print dif
 
 print '-----------------'
         
