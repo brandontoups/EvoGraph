@@ -622,10 +622,10 @@ if __name__ == '__main__':
     print '\n\nNow running timing experiments on various datasets'
     
     # running timing experiments on ../data/sf=1.txt
-    timingSF1()
+    #timingSF1()
     
     # running timing experiments on ../data/toy.txt
-    #timingToy()
+    timingToy()
     
     # this is going to take the longest, reserving for only one execution
     #upscaleToy128x()
