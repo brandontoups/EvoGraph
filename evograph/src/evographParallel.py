@@ -514,20 +514,23 @@ def timingToy():
     
     fileToUpscale = '../data/toy.txt'
     # Below lines for testing execution time 
-    numberOfThreads = 1
+    #numberOfThreads = 1
     kValue = 2
-    numIterations = 3
+    numIterations = 1
     # k=2 ; threads=1 ; iterations=5
-    runtime(fileToUpscale, kValue, numberOfThreads, numIterations)
+    #runtime(fileToUpscale, kValue, numberOfThreads, numIterations)
     
     # k=2 ; threads=2 ; iterations=5
-    runtime(fileToUpscale, kValue, 2,  numIterations)
+    #runtime(fileToUpscale, kValue, 2,  numIterations)
     
     # k=2 ; threads=8 ; iterations=5
-    runtime(fileToUpscale, kValue, 8,  numIterations)
+    #runtime(fileToUpscale, kValue, 8,  numIterations)
     
     # k=2 ; threads=100; iterations=5
     runtime(fileToUpscale, kValue, 100, numIterations)
+    
+    # k=2 ; threads=110; iterations=5
+    runtime(fileToUpscale, kValue, 110, numIterations)
     
     # k=2 ; threads=200; iterations=5
     runtime(fileToUpscale, kValue, 200, numIterations)
@@ -543,7 +546,7 @@ def timingToy():
 
     # this is going to take long
     # k=2 ; threads=400; iterations=1
-    runtime(fileToUpscale, kValue, 1000, 1)
+#    runtime(fileToUpscale, kValue, 1000, 1)
     
     
     print '----------------------------------------'
