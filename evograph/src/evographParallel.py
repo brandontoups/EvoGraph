@@ -561,7 +561,7 @@ def timingToy():
     #runtime(fileToUpscale, kValue, numberOfThreads, numIterations)
     
     # k=3 ; threads=2 ; iterations=5
-    runtime(fileToUpscale, kValue, 2,  numIterations)
+    #runtime(fileToUpscale, kValue, 2,  numIterations)
     
     # k=3 ; threads=8 ; iterations=5
     runtime(fileToUpscale, kValue, 8,  numIterations)
