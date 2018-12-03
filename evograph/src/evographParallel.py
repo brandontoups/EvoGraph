@@ -516,7 +516,7 @@ def timingToy():
     # Below lines for testing execution time 
     numberOfThreads = 1
     kValue = 2
-    numIterations = 5
+    numIterations = 3
     # k=2 ; threads=1 ; iterations=5
     runtime(fileToUpscale, kValue, numberOfThreads, numIterations)
     
@@ -553,7 +553,7 @@ def timingToy():
     # Below lines for testing execution time 
     numberOfThreads = 1
     kValue = 3
-    numIterations = 5
+    numIterations = 3
     # k=3 ; threads=1 ; iterations=5
     runtime(fileToUpscale, kValue, numberOfThreads, numIterations)
     
