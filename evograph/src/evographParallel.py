@@ -527,22 +527,22 @@ def timingToy():
     #runtime(fileToUpscale, kValue, 8,  numIterations)
     
     # k=2 ; threads=100; iterations=5
-    runtime(fileToUpscale, kValue, 100, numIterations)
+    #runtime(fileToUpscale, kValue, 100, numIterations)
     
     # k=2 ; threads=110; iterations=5
-    runtime(fileToUpscale, kValue, 110, numIterations)
+    #runtime(fileToUpscale, kValue, 110, numIterations)
     
     # k=2 ; threads=200; iterations=5
-    runtime(fileToUpscale, kValue, 200, numIterations)
+    #runtime(fileToUpscale, kValue, 200, numIterations)
     
     # k=2 ; threads=250; iterations=5
-    runtime(fileToUpscale, kValue, 250, numIterations)
+    #runtime(fileToUpscale, kValue, 250, numIterations)
     
     # k=2 ; threads=300; iterations=5
-    runtime(fileToUpscale, kValue, 300, numIterations)
+    #runtime(fileToUpscale, kValue, 300, numIterations)
     
     # k=2 ; threads=400; iterations=5
-    runtime(fileToUpscale, kValue, 400, numIterations)
+    #runtime(fileToUpscale, kValue, 400, numIterations)
 
     # this is going to take long
     # k=2 ; threads=400; iterations=1
@@ -556,9 +556,9 @@ def timingToy():
     # Below lines for testing execution time 
     numberOfThreads = 1
     kValue = 3
-    numIterations = 3
+    numIterations = 1
     # k=3 ; threads=1 ; iterations=5
-    runtime(fileToUpscale, kValue, numberOfThreads, numIterations)
+    #runtime(fileToUpscale, kValue, numberOfThreads, numIterations)
     
     # k=3 ; threads=2 ; iterations=5
     runtime(fileToUpscale, kValue, 2,  numIterations)
@@ -568,6 +568,9 @@ def timingToy():
     
     # k=3 ; threads=100; iterations=5
     runtime(fileToUpscale, kValue, 100, numIterations)
+    
+    # k=3 ; threads=100; iterations=5
+    runtime(fileToUpscale, kValue, 110, numIterations)
     
     # k=3 ; threads=200; iterations=5
     runtime(fileToUpscale, kValue, 200, numIterations)
@@ -583,7 +586,7 @@ def timingToy():
 
     # this is going to take long
     # k=3 ; threads=400; iterations=1
-    runtime(fileToUpscale, kValue, 1000, 1)
+    #runtime(fileToUpscale, kValue, 1000, 1)
 
 
     
