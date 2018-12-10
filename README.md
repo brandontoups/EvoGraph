@@ -74,9 +74,17 @@ Initial graph representation:
 
 We will now show our experimental results with normal computation and parallel computation on the small scale dataset shown above.
 
+## Graph upscaled by scale factor of 2:
+
 Expected             |  Single Thread       | Multithread
 :-------------------------:|:-------------------------:|:-------------------------:
 <img src="/evograph/images/graph-images/2expected.png" width="250"/>  | <img src="/evograph/images/graph-images/2actual.png" width="250"/>  |  <img src="/evograph/images/graph-images/2multi.png" width="250"/>
+
+## Graph upscaeld by scale factor of 3:
+Expected             |  Single Thread       | Multithread
+:-------------------------:|:-------------------------:|:-------------------------:
+<img src="/evograph/images/graph-images/3expected.png" width="250"/>  | <img src="/evograph/images/graph-images/3actual.png" width="250"/>  |  <img src="/evograph/images/graph-images/3multi.png" width="250"/>
+
 
 
 
