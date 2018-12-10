@@ -14,10 +14,37 @@ Basic Edge Attachment: non-recursive edge attachment. The paper does not use BEA
 
 ![BEA](/evograph/images/code-images/BEA.png)
 
-Memory-efficient Edge Attachment: recursive edge attachment. Parent edges must be in level sf=1. When a parent edge is found, but that parent edge is not in sf=1, the recursive call works backwards to call itself, until a parent edge in sf=1 is found. 
+Memory-efficient Edge Attachment: recursive edge attachment. Parent edges must be in level sf=1. When a parent edge is found, but that parent edge is not in sf=1, the recursive call works backwards to call itself, until a parent edge in sf=1 is found. This MEA is the actual DETERMINE(ey) function
 
 ![MEA](/evograph/images/code-images/MEA.png)
 
+The calculations of the parent edge is the function h1(y), shown below:
+```
+# x ~ U(0, (k-1)*|E|-1)
+def h1(key):
+    return H(key) mod( (k-1) * |E| )
+```
+
+The calculation of the direction of the newly-attached edge is the function h2(y), shown below:
+```
+# direction ~ U(0, 1)
+def h2(key):
+    return H(key) % 2
+```
+
+The uniform random variable hashing functions above reference H(key), which is shown below:
+```
+def H(key): 
+    return ((key + 13) x 7)
+```
+
+Once the parent edge and direction have been calculated using h1 and h2, we must determine the new edge the be attached. This is done, based on the calculated direction, by referencing the proper node in the current scale factor level that is aligned with the node in the initial graph. For instance, with initial graph, and level 2 graph having nodes:
+
+``` initial graph   -> v0 v1 v2 v3 ```
+
+``` current k graph -> v4 v5 v6 v7 ```
+
+The reference node of v0 is v4, v1 is v5, and so on. This final calculation of the refernce nodes is the final calculation necessary in determining the edge to be attached. 
 
 
 ## Parallel Computation 
