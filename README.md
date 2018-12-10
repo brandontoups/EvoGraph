@@ -110,12 +110,12 @@ Expected             |  Single Thread       | Multithread (3 threads)
 :-------------------------:|:-------------------------:|:-------------------------:
 <img src="/evograph/images/graph-images/2expected.png" height="350"/>  | <img src="/evograph/images/graph-images/2actual.png" height="350"/>  |  <img src="/evograph/images/graph-images/2multi.png" height="350"/>
 
-## Graph upscaeld by scale factor of 3:
+## Graph upscaled by scale factor of 3:
 Expected             |  Single Thread       | Multithread (9 threads)
 :-------------------------:|:-------------------------:|:-------------------------:
 <img src="/evograph/images/graph-images/3expected.png" height="350"/>  | <img src="/evograph/images/graph-images/3actual.png" height="350"/>  |  <img src="/evograph/images/graph-images/3multi.png" height="350"/>
 
-## Graph upscaeld by scale factor of 4:
+## Graph upscaled by scale factor of 4:
 Expected             |  Single Thread       | Multithread (12 threads)
 :-------------------------:|:-------------------------:|:-------------------------:
 <img src="/evograph/images/graph-images/4expected.png" height="500"/>  | <img src="/evograph/images/graph-images/4actual.png" height="500"/>  |  <img src="/evograph/images/graph-images/4multi.png" height="500"/>
