@@ -78,14 +78,17 @@ We will now show our experimental results with normal computation and parallel c
 
 Expected             |  Single Thread       | Multithread
 :-------------------------:|:-------------------------:|:-------------------------:
-<img src="/evograph/images/graph-images/2expected.png" width="250"/>  | <img src="/evograph/images/graph-images/2actual.png" width="250"/>  |  <img src="/evograph/images/graph-images/2multi.png" width="250"/>
+<img src="/evograph/images/graph-images/2expected.png" height="500"/>  | <img src="/evograph/images/graph-images/2actual.png" height="500"/>  |  <img src="/evograph/images/graph-images/2multi.png" height="500"/>
 
 ## Graph upscaeld by scale factor of 3:
 Expected             |  Single Thread       | Multithread
 :-------------------------:|:-------------------------:|:-------------------------:
-<img src="/evograph/images/graph-images/3expected.png" width="250"/>  | <img src="/evograph/images/graph-images/3actual.png" width="250"/>  |  <img src="/evograph/images/graph-images/3multi.png" width="250"/>
+<img src="/evograph/images/graph-images/3expected.png" height="500"/>  | <img src="/evograph/images/graph-images/3actual.png" height="500"/>  |  <img src="/evograph/images/graph-images/3multi.png" height="500"/>
 
-
+## Graph upscaeld by scale factor of 4:
+Expected             |  Single Thread       | Multithread
+:-------------------------:|:-------------------------:|:-------------------------:
+<img src="/evograph/images/graph-images/4expected.png" height="500"/>  | <img src="/evograph/images/graph-images/4actual.png" height="500"/>  |  <img src="/evograph/images/graph-images/4multi.png" height="500"/>
 
 
 ## Citation
