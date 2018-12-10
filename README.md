@@ -56,11 +56,27 @@ def EvoGraph(currentNumEdges):
 
 Initial graph: 
 
-![initial graph](/evograph/images/code-images/1graph.png)
+![initial graph](/evograph/images/graph-images/1graph.png)
+
+Scaled by a factor of 2:
+
+![initial graph](/evograph/images/ggraph-images/2graph.png)
+
+Scaled by a factor of 3:
+
+![initial graph](/evograph/images/graph-images/3graph.png)
 
 Initial graph representation: 
 
-![initial graph](/evograph/images/code-images/1actual.png)
+<img src="/evograph/images/graph-images/1actual.png" width="200" height="200"/>
+
+---
+
+We will now show our experimental results with normal computation and parallel computation on the small scale dataset shown above.
+
+Expected             |  Single Thread       | Multithread
+:-------------------------:|:-------------------------:|:-------------------------:
+![sf=2](/evograph/images/graph-images/2expected.png)  | ![sf=2](/evograph/images/graph-images/2actual.png)  |  ![sf=2](/evograph/images/graph-images/2multi.png) 
 
 
 
