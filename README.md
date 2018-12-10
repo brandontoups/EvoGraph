@@ -54,6 +54,8 @@ Why is parallel computing allowed?
 * The graph is both read and written from the same file, on disk
 * Each newly added edge is read by a different thread, and placed back into the file when the parent edge calculation is finished
 * Experimental results led to conclusion that ~100-110 threads is optimal
+* Since the initial file can be referenced from anywhere, read at any time in the upscale, and written back into at any time, distributed, parallel computing is allowed.
+* The use of locks on the file is therefore unnecessary, as any amount of instances can access the file at any time. 
 
 Why are the writes out of order? 
 * Some of the parent-edge calculations require recursion
