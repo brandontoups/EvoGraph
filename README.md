@@ -118,7 +118,7 @@ Expected             |  Single Thread       | Multithread (9 threads)
 ## Graph upscaeld by scale factor of 4:
 Expected             |  Single Thread       | Multithread (12 threads)
 :-------------------------:|:-------------------------:|:-------------------------:
-<img src="/evograph/images/graph-images/4expected.png" height="350"/>  | <img src="/evograph/images/graph-images/4actual.png" height="350"/>  |  <img src="/evograph/images/graph-images/4multi.png" height="350"/>
+<img src="/evograph/images/graph-images/4expected.png" height="500"/>  | <img src="/evograph/images/graph-images/4actual.png" height="500"/>  |  <img src="/evograph/images/graph-images/4multi.png" height="500"/>
 
 
 ## Citation
