@@ -8,7 +8,7 @@ Implementations of both [normal](/evograph/src/evograph.py) and [parallel comput
 
 
 ## Algorithm
-![algorithm](/evograph/images/code-images/xevograph.png)
+![algorithm](/evograph/images/code-images/XEvoGraph.png)
 
 Basic Edge Attachment: non-recursive edge attachment
 
