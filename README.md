@@ -8,13 +8,13 @@ Implementations of both [normal](/evograph/src/evograph.py) and [parallel comput
 
 
 ## Algorithm
-![algorithm](/evograph/images/code-images/XEvoGraph.png)
+<img src="evograph/images/code-images/XEvoGraph.png" height="200"/> 
 
-Basic Edge Attachment: non-recursive edge attachment
+Basic Edge Attachment: non-recursive edge attachment. The paper does not use BEA, but it is present to show what the edge-attachment look like. Basic edge attachment works for a upscale by a factor of 2, as there is no recursion necessary until a scale factor of 3. 
 
 ![BEA](/evograph/images/code-images/BEA.png)
 
-Memory-efficient Edge Attachment: recursive edge attachment
+Memory-efficient Edge Attachment: recursive edge attachment. Parent edges must be in level sf=1. When a parent edge is found, but that parent edge is not in sf=1, the recursive call works backwards to call itself, until a parent edge in sf=1 is found. 
 
 ![MEA](/evograph/images/code-images/MEA.png)
 
@@ -52,7 +52,7 @@ def EvoGraph(currentNumEdges):
     vsvt = DETERMINE(currentNumEdges)
     WRITE(vsvt, currentNumEdges, fileToUpscale)
 ```
-## Experiments
+## Example
 
 Initial graph: 
 
@@ -60,33 +60,34 @@ Initial graph:
 
 Scaled by a factor of 2:
 
-![initial graph](/evograph/images/ggraph-images/2graph.png)
+![2 graph](/evograph/images/graph-images/2graph.png)
 
 Scaled by a factor of 3:
 
-![initial graph](/evograph/images/graph-images/3graph.png)
+![3 graph](/evograph/images/graph-images/3graph.png)
 
-Initial graph representation: 
+Initial graph file representation: 
 
 <img src="/evograph/images/graph-images/1actual.png" width="250"/>
 
 ---
+## Experimental Results
 
-We will now show our experimental results with normal computation and parallel computation on the small scale dataset shown above.
+We will now show our experimental results with normal computation and parallel computation on the small scale dataset shown above. Tabs on the Expected graphs are to show the newly added edges for that level.
 
 ## Graph upscaled by scale factor of 2:
 
-Expected             |  Single Thread       | Multithread
+Expected             |  Single Thread       | Multithread (3 threads)
 :-------------------------:|:-------------------------:|:-------------------------:
 <img src="/evograph/images/graph-images/2expected.png" height="500"/>  | <img src="/evograph/images/graph-images/2actual.png" height="500"/>  |  <img src="/evograph/images/graph-images/2multi.png" height="500"/>
 
 ## Graph upscaeld by scale factor of 3:
-Expected             |  Single Thread       | Multithread
+Expected             |  Single Thread       | Multithread (9 threads)
 :-------------------------:|:-------------------------:|:-------------------------:
 <img src="/evograph/images/graph-images/3expected.png" height="500"/>  | <img src="/evograph/images/graph-images/3actual.png" height="500"/>  |  <img src="/evograph/images/graph-images/3multi.png" height="500"/>
 
 ## Graph upscaeld by scale factor of 4:
-Expected             |  Single Thread       | Multithread
+Expected             |  Single Thread       | Multithread (12 threads)
 :-------------------------:|:-------------------------:|:-------------------------:
 <img src="/evograph/images/graph-images/4expected.png" height="500"/>  | <img src="/evograph/images/graph-images/4actual.png" height="500"/>  |  <img src="/evograph/images/graph-images/4multi.png" height="500"/>
 
