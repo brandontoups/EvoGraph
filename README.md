@@ -68,7 +68,7 @@ Scaled by a factor of 3:
 
 Initial graph representation: 
 
-<img src="/evograph/images/graph-images/1actual.png" width="200" height="200"/>
+<img src="/evograph/images/graph-images/1actual.png" width="250"/>
 
 ---
 
@@ -76,7 +76,7 @@ We will now show our experimental results with normal computation and parallel c
 
 Expected             |  Single Thread       | Multithread
 :-------------------------:|:-------------------------:|:-------------------------:
-![sf=2](/evograph/images/graph-images/2expected.png)  | ![sf=2](/evograph/images/graph-images/2actual.png)  |  ![sf=2](/evograph/images/graph-images/2multi.png) 
+<img src="/evograph/images/graph-images/2expected.png" width="250"/>  | <img src="/evograph/images/graph-images/2actual.png" width="250"/>  |  <img src="/evograph/images/graph-images/2multi.png" width="250"/>
 
 
 
