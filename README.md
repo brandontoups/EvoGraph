@@ -126,3 +126,29 @@ Expected             |  Single Thread       | Multithread (12 threads)
 Himchan Park and Min-Soo Kim. 2018. EvoGraph: An Effective and Efficient Graph Upscaling Method for Preserving Graph Properties. In Proceedings of the 24th ACM SIGKDD International Conference on Knowledge Discovery & Data Mining (KDD '18). ACM, New York, NY, USA, 2051-2059. DOI: https://doi.org/10.1145/3219819.3220123
 
 Original Implementation GitHub: https://github.com/chan150/EvoGraph
+
+
+## Running Experiments
+
+As stated at the beginning of the README, the Implementations of both [normal](/evograph/src/evograph.py) and [parallel computing](/evograph/src/evographParallel.py) are present in this repository. The normal code is running the experiment on the small scale dataset without parallel computation.
+
+To run the normal file, you will want to run 
+
+`$ python /evograph/src/evograph.py`
+
+The file takes in no arguments, and maintains state of the original file internally. Therefore, by running this file, the printouts of all upscales with be followed by a reversion of sf=1.txt back to its starting state. The exception to this is after the program has finished executing. The upscale of the initial graph to a scale factor of 128x will not be printed to the terminal. However, the file will not be reverted to its initial state. Therefore, to view the content of this file at this point, simply `$ cat /evograph/data/sf=1.txt` keeping in mind that this file has 768 edges, each holding its own line number.
+
+To run and evaluate EvoGraph with parallelism, you will want to run 
+
+`$ python /evograph/src/evographParallel.py`
+
+This file will handle reversions back to the original file as well. This code will also execute our attempt at a large scale dataset upscale. The optimal threading of this dataset upscale is known anecdotally to be 100 threads, but uncommenting the other various calls to upscale will allow performance benchmarking on your own. 
+
+We did find in our experiments that our code had issues in upscaling the large dataset provided by original authors, `/evograph/data/toy.txt`. The upscale to scale factor of 2 seemed to be taking into account the number of current edges, and incorrectly incrementing the non-referenced node by that factor. The range of the upscale's nodes to a factor of 2 should be in the range 1016-2032, as an upscale of 1016 nodes by 2 would have a maximum of 2032 nodes. The upscale seen, however, manages to keep a range of nearly 1016 nodes (10426-11442), but just shifted by a factor of ~10426 (the original number of edges in the toy.txt file). At this point, a solution to this issue is not apparent, as the small scale dataset has no issues with upscaling properly. 
+
+Personal benchmarking results are located in the `/evograph/analysis/parallelism` directory.
+
+
+## Evaluation Scores
+
+EvoGraph prides itself on the maintenance of graphical structure after upscaling. Two of these eight structural qualities, in-degreee and out-degree, are analyzed briefly in the `/evograph/analysis/degreeDistribution.xlsx` file. 
