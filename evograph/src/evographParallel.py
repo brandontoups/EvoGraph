@@ -366,37 +366,37 @@ def timingSF1():
     runtime(fileToUpscale, kValue, 8,  numIterations)
     
     # k=2 ; threads=16; iterations=5
-    runtime(fileToUpscale, kValue, 16, numIterations)
+    #runtime(fileToUpscale, kValue, 16, numIterations)
     
     # k=2 ; threads=32; iterations=5
-    runtime(fileToUpscale, kValue, 32, numIterations)
+    #runtime(fileToUpscale, kValue, 32, numIterations)
     
     # k=2 ; threads=64; iterations=5
-    runtime(fileToUpscale, kValue, 64, numIterations)
+    #runtime(fileToUpscale, kValue, 64, numIterations)
     
     # k=2 ; threads=100; iterations=5
     runtime(fileToUpscale, kValue, 100, numIterations)
     
     # k=2 ; threads=110; iterations=5
-    runtime(fileToUpscale, kValue, 110, numIterations)
+    #runtime(fileToUpscale, kValue, 110, numIterations)
     
     # k=2 ; threads=128; iterations=5
-    runtime(fileToUpscale, kValue, 128, numIterations)
+    #runtime(fileToUpscale, kValue, 128, numIterations)
     
     # k=2 ; threads=150; iterations=5
-    runtime(fileToUpscale, kValue, 150, numIterations)
+    #runtime(fileToUpscale, kValue, 150, numIterations)
     
     # k=2 ; threads=200; iterations=5
-    runtime(fileToUpscale, kValue, 200, numIterations)
+    #runtime(fileToUpscale, kValue, 200, numIterations)
     
     # k=2 ; threads=250; iterations=5
-    runtime(fileToUpscale, kValue, 250, numIterations)
+    #runtime(fileToUpscale, kValue, 250, numIterations)
     
     # k=2 ; threads=300; iterations=5
-    runtime(fileToUpscale, kValue, 300, numIterations)
+    #runtime(fileToUpscale, kValue, 300, numIterations)
     
     # k=2 ; threads=400; iterations=5
-    runtime(fileToUpscale, kValue, 400, numIterations)
+    #runtime(fileToUpscale, kValue, 400, numIterations)
 
     
     print '----------------------------------------'
@@ -420,37 +420,37 @@ def timingSF1():
     runtime(fileToUpscale, kValue, 8,  numIterations)
     
     # k=3 ; threads=16; iterations=5
-    runtime(fileToUpscale, kValue, 16, numIterations)
+    #runtime(fileToUpscale, kValue, 16, numIterations)
     
     # k=3 ; threads=32; iterations=5
-    runtime(fileToUpscale, kValue, 32, numIterations)
+    #runtime(fileToUpscale, kValue, 32, numIterations)
     
     # k=3 ; threads=64; iterations=5
-    runtime(fileToUpscale, kValue, 64, numIterations)
+    #runtime(fileToUpscale, kValue, 64, numIterations)
     
     # k=3 ; threads=100; iterations=5
     runtime(fileToUpscale, kValue, 100, numIterations)
     
     # k=3 ; threads=110; iterations=5
-    runtime(fileToUpscale, kValue, 110, numIterations)
+    #runtime(fileToUpscale, kValue, 110, numIterations)
     
     # k=3 ; threads=128; iterations=5
-    runtime(fileToUpscale, kValue, 128, numIterations)
+    #runtime(fileToUpscale, kValue, 128, numIterations)
     
     # k=3 ; threads=150; iterations=5
-    runtime(fileToUpscale, kValue, 150, numIterations)
+    #runtime(fileToUpscale, kValue, 150, numIterations)
     
     # k=3 ; threads=200; iterations=5
-    runtime(fileToUpscale, kValue, 200, numIterations)
+    #runtime(fileToUpscale, kValue, 200, numIterations)
     
     # k=3 ; threads=250; iterations=5
-    runtime(fileToUpscale, kValue, 250, numIterations)
+    #runtime(fileToUpscale, kValue, 250, numIterations)
     
     # k=3 ; threads=300; iterations=5
-    runtime(fileToUpscale, kValue, 300, numIterations)
+    #runtime(fileToUpscale, kValue, 300, numIterations)
     
     # k=3 ; threads=400; iterations=5
-    runtime(fileToUpscale, kValue, 400, numIterations)
+    #runtime(fileToUpscale, kValue, 400, numIterations)
     
     
     print '----------------------------------------'
@@ -474,37 +474,37 @@ def timingSF1():
     runtime(fileToUpscale, kValue, 8,  numIterations)
     
     # k=128 ; threads=16; iterations=5
-    runtime(fileToUpscale, kValue, 16, numIterations)
+    #runtime(fileToUpscale, kValue, 16, numIterations)
     
     # k=128 ; threads=32; iterations=5
-    runtime(fileToUpscale, kValue, 32, numIterations)
+    #runtime(fileToUpscale, kValue, 32, numIterations)
     
     # k=128 ; threads=64; iterations=5
-    runtime(fileToUpscale, kValue, 64, numIterations)
+    #runtime(fileToUpscale, kValue, 64, numIterations)
     
     # k=128 ; threads=100; iterations=5
     runtime(fileToUpscale, kValue, 100, numIterations)
     
     # k=128 ; threads=110; iterations=5
-    runtime(fileToUpscale, kValue, 110, numIterations)
+    #runtime(fileToUpscale, kValue, 110, numIterations)
     
     # k=128 ; threads=128; iterations=5
-    runtime(fileToUpscale, kValue, 128, numIterations)
+    #runtime(fileToUpscale, kValue, 128, numIterations)
     
     # k=128 ; threads=150; iterations=5
-    runtime(fileToUpscale, kValue, 150, numIterations)
+    #runtime(fileToUpscale, kValue, 150, numIterations)
     
     # k=128 ; threads=200; iterations=5
-    runtime(fileToUpscale, kValue, 200, numIterations)
+    #runtime(fileToUpscale, kValue, 200, numIterations)
     
     # k=128 ; threads=250; iterations=5
-    runtime(fileToUpscale, kValue, 250, numIterations)
+    #runtime(fileToUpscale, kValue, 250, numIterations)
     
     # k=128 ; threads=300; iterations=5
-    runtime(fileToUpscale, kValue, 300, numIterations)
+    #runtime(fileToUpscale, kValue, 300, numIterations)
     
     # k=128 ; threads=400; iterations=5
-    runtime(fileToUpscale, kValue, 400, numIterations)
+    #runtime(fileToUpscale, kValue, 400, numIterations)
     
     
 def timingToy():
@@ -527,7 +527,7 @@ def timingToy():
     #runtime(fileToUpscale, kValue, 8,  numIterations)
     
     # k=2 ; threads=100; iterations=5
-    #runtime(fileToUpscale, kValue, 100, numIterations)
+    runtime(fileToUpscale, kValue, 100, numIterations)
     
     # k=2 ; threads=110; iterations=5
     #runtime(fileToUpscale, kValue, 110, numIterations)
@@ -564,25 +564,25 @@ def timingToy():
     #runtime(fileToUpscale, kValue, 2,  numIterations)
     
     # k=3 ; threads=8 ; iterations=5
-    runtime(fileToUpscale, kValue, 8,  numIterations)
+    #runtime(fileToUpscale, kValue, 8,  numIterations)
     
     # k=3 ; threads=100; iterations=5
     runtime(fileToUpscale, kValue, 100, numIterations)
     
     # k=3 ; threads=100; iterations=5
-    runtime(fileToUpscale, kValue, 110, numIterations)
+    #runtime(fileToUpscale, kValue, 110, numIterations)
     
     # k=3 ; threads=200; iterations=5
-    runtime(fileToUpscale, kValue, 200, numIterations)
+    #runtime(fileToUpscale, kValue, 200, numIterations)
     
     # k=3 ; threads=250; iterations=5
-    runtime(fileToUpscale, kValue, 250, numIterations)
+    #runtime(fileToUpscale, kValue, 250, numIterations)
     
     # k=3 ; threads=300; iterations=5
-    runtime(fileToUpscale, kValue, 300, numIterations)
+    #runtime(fileToUpscale, kValue, 300, numIterations)
     
     # k=3 ; threads=400; iterations=3
-    runtime(fileToUpscale, kValue, 400, 3)
+    #runtime(fileToUpscale, kValue, 400, 3)
 
     # this is going to take long
     # k=3 ; threads=400; iterations=1
@@ -622,13 +622,13 @@ if __name__ == '__main__':
     returnToyToOriginal()
 
     # Various upscale actions taken on sf=1.txt.
-    #upscaleGraph()    
+    upscaleGraph()    
     
     
     print '\n\nNow running timing experiments on various datasets'
     
     # running timing experiments on ../data/sf=1.txt
-    #timingSF1()
+    timingSF1()
     
     # running timing experiments on ../data/toy.txt
     timingToy()
