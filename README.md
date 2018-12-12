@@ -19,21 +19,21 @@ Memory-efficient Edge Attachment: recursive edge attachment. Parent edges must b
 ![MEA](/evograph/images/code-images/MEA.png)
 
 The calculations of the parent edge is the function h1(y), shown below:
-```
+```python
 # x ~ U(0, (k-1)*|E|-1)
 def h1(key):
     return H(key) mod( (k-1) * |E| )
 ```
 
 The calculation of the direction of the newly-attached edge is the function h2(y), shown below:
-```
+```python
 # direction ~ U(0, 1)
 def h2(key):
     return H(key) % 2
 ```
 
 The uniform random variable hashing functions above reference H(key), which is shown below:
-```
+```python
 def H(key): 
     return ((key + 13) x 7)
 ```
@@ -63,14 +63,14 @@ Why are the writes out of order?
 * Out of order does not matter, as all threads read/write their own unique thread
 
 Normal for-loop
-```
+```python
 for EdgeInstance.currentNumEdges in range(EdgeInstance.initialNumEdges, maxNumEdges):
     vsvt = DETERMINE(EdgeInstance.currentNumEdges)
     WRITE(vsvt, EdgeInstance.currentNumEdges, fileToUpscale)
 ```
 
 Parallelized for-loop
-```
+```python
 def parallel(fileToUpscale, kValToUpscaleTo, processes):
     p = Pool(processes=processes)
     iterRange = list(range(EdgeInstance.initialNumEdges, maxNumEdges))
