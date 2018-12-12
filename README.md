@@ -38,7 +38,7 @@ def H(key):
     return ((key + 13) x 7)
 ```
 
-Once the parent edge and direction have been calculated using h1 and h2, we must determine the new edge the be attached. This is done, based on the calculated direction, by referencing the proper node in the current scale factor level that is aligned with the node in the initial graph. For instance, with initial graph, and level 2 graph having nodes:
+Once the parent edge and direction have been calculated using h1 and h2, we must determine the new edge to be attached. This is done, based on the calculated direction, by referencing the proper node in the current scale factor level that is aligned with the node in the initial graph. For instance, with initial graph, and level 2 graph having nodes:
 
 ``` initial graph   -> v0 v1 v2 v3 ```
 
