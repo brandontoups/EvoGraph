@@ -144,11 +144,11 @@ To run and evaluate EvoGraph with parallelism, you will want to run
 
 This file will handle reversions back to the original file as well. This code will also execute our attempt at a large scale dataset upscale. The optimal threading of this dataset upscale is known anecdotally to be 100 threads, but uncommenting the other various calls to upscale will allow performance benchmarking on your own. 
 
-We did find in our experiments that our code had issues in upscaling the large dataset provided by original authors, `/evograph/data/toy.txt`. The upscale to scale factor of 2 seemed to be taking into account the number of current edges, and incorrectly incrementing the non-referenced node by that factor. The range of the upscale's nodes to a factor of 2 should be in the range 1016-2032, as an upscale of 1016 nodes by 2 would have a maximum of 2032 nodes. The upscale seen, however, manages to keep a range of nearly 1016 nodes (10426-11442), but just shifted by a factor of ~10426 (the original number of edges in the toy.txt file). At this point, a solution to this issue is not apparent, as the small scale dataset has no issues with upscaling properly. 
+We did find in our experiments that our code had issues in upscaling the large dataset provided by original authors, `/evograph/data/toy.txt`. The upscale to scale factor of 2 seemed to be taking into account the number of current edges, and incorrectly incrementing the non-referenced node by that factor. The range of the upscale's nodes to a factor of 2 should be in the range 1016-2032, as an upscale of 1016 nodes by 2 would have a maximum of 2032 nodes. The upscale seen, however, manages to keep a range of nearly 1016 nodes (10426-11442), but just shifted by a factor of ~10426 (the original number of edges in the toy.txt file). At this point, a solution to this issue is not apparent, as the small scale dataset has no issues with upscaling properly. However, I am leaving the timing information available, as it still scales to the proper number of edges, just shifted by a factor of ~10426.
 
-Personal benchmarking results are located in the `/evograph/analysis/parallelism` directory.
+Personal benchmarking results are located in the `/evograph/analysis/parallelism.xlsx` [file](/evograph/analysis/parallelism.xlsx).
 
 
 ## Evaluation Scores
 
-EvoGraph prides itself on the maintenance of graphical structure after upscaling. Two of these eight structural qualities, in-degreee and out-degree, are analyzed briefly in the `/evograph/analysis/degreeDistribution.xlsx` file. 
+EvoGraph prides itself on the maintenance of graphical structure after upscaling. Two of these eight structural qualities, in-degreee and out-degree, are analyzed briefly in the `/evograph/analysis/degreeDistribution.xlsx` [file](/evograph/analysis/degreeDistribution.xlsx) for upscales to 2 and 3 scale factor. 
