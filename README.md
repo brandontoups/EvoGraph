@@ -148,6 +148,8 @@ We did find in our experiments that our code had issues in upscaling the large d
 
 Personal benchmarking results are located in the `/evograph/analysis/parallelism.xlsx` [file](/evograph/analysis/parallelism.xlsx).
 
+Timing experimental results are shown [here](/executionScripts/timingAndExecution.txt). Running EvoGraph regularly is shown [here](/executionScripts/runningEvograph.txt)
+
 
 ## Evaluation Scores
 
