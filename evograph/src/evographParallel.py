@@ -63,7 +63,6 @@ class EdgeInstance(object):
     initialKVal = 0
     currentKVal = 2
 
-
 # Algorithm 1 EvoGraph
 # Input G = (V, E) // original graph
 #       k          // scale factor
@@ -106,7 +105,6 @@ def parallel(fileToUpscale, kValToUpscaleTo, processes):
         p.close()
         
     return iterationTime
-
 
 def EvoGraphSF1(currentNumEdges):
     readGraph('../data/sf=1.txt')
@@ -158,7 +156,6 @@ def upscaleGraph():
         print fin.read()
     print '----------------------------------------\n'
     
-    
     # Upscale to k=4
     print 'Upscaling sf=1.txt graph from k=1 to k=4: '
     parallel('../data/sf=1.txt', 4, 12)
@@ -171,16 +168,9 @@ def upscaleGraph():
         print fin.read()
     print '----------------------------------------\n'
     
-    
-def parallelToy(fileToUpscale, kValue, processes=-1):
-    parallel(fileToUpscale, kValue, processes)
-    #returnToyToOriginal()
-    
-        
 def WRITE(refvsvt, y, fileToWriteTo):
     with open(fileToWriteTo,'a') as openFile:
         openFile.write( str(refvsvt[0]) + '\t' + str(refvsvt[1])  + '\t#e' + str(y) + '\n')
-
 
 # DETERMINE(ey) :
 #     x ~ U(0, (k-1)*|E|-1)
@@ -243,8 +233,7 @@ def readGraph(inputFile):
         EdgeInstance.initialNumEdges = edgeNum
     EdgeInstance.currentGraph = edges
     EdgeInstance.currentNumEdges = edgeNum
-    
-    
+
    
 # H(key) = ((key + 13) x 7)
 # h1(y) determines the ID x of a parent edge ex of the edge ey

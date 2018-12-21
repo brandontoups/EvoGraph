@@ -149,7 +149,6 @@ def WRITE(refvsvt, y, fileToWriteTo):
     with open(fileToWriteTo,'a') as openFile:
         openFile.write( str(refvsvt[0]) + '\t' + str(refvsvt[1])  + '\t#e' + str(y) + '\n')
 
-
 # DETERMINE(ey) :
 #     x ~ U(0, (k-1)*|E|-1)
 #     direction ~ U(0,1)
@@ -211,8 +210,6 @@ def readGraph(inputFile):
     EdgeInstance.currentGraph = edges
     EdgeInstance.currentNumEdges = edgeNum
     
-    
-   
 # H(key) = ((key + 13) x 7)
 # h1(y) determines the ID x of a parent edge ex of the edge ey
 # Hash Function for U(0, (k-1)*|E|-1)
@@ -221,8 +218,7 @@ def readGraph(inputFile):
 def h1(key):
     
     return H(key) % ((EdgeInstance.currentKVal-1) * (EdgeInstance.initialNumEdges))
-    
-    
+        
 # h2(y) determines a direction of the edge ey (direction 0 means towards 
 # the inside of the graph, while direction 1 means towards the outside of graph.
 # Hash Function for U(0,1)
@@ -232,7 +228,6 @@ def h2(key):
 
 def H(key):
     return ((key + 13) * 7)
-
 
 def REFSF(whichIndex):
     refIs = 0
@@ -245,12 +240,9 @@ def REFSF(whichIndex):
         return refIs + int(nodesOnLevel* (EdgeInstance.currentKVal-1))
     return refIs
 
-
-
 def outputGraph(fileToUpscale):
     with open(fileToUpscale, 'r') as fin:
         print (fin.read())
-
 
 def returnSF1ToOriginal():
     # opens original fileToUpscale
@@ -265,24 +257,6 @@ def returnSF1ToOriginal():
     file1.close()
     #close file2
     file2.close()
-#===============================================================================
-#     
-# def returnToyToOriginal():
-#     #print 'For repeatability, the fileToUpscale toy is now being returned to its original state'
-#     # opens original fileToUpscale
-#     file1 = open("../data/toyOriginal.txt" , "r")
-#     # opens new fileToUpscale
-#     file2 = open("../data/toy.txt" , "w")
-#     #for each line in old fileToUpscale
-#     for line in file1:
-#         #write that line to the new fileToUpscale
-#         file2.write(line)
-#     #close fileToUpscale 1
-#     file1.close()
-#     #close file2
-#     file2.close()
-#===============================================================================
-    
     
 def outputOriginalSF1():
     # print out original fileToUpscale 
@@ -290,16 +264,6 @@ def outputOriginalSF1():
     with open('../data/sf=1Original.txt', 'r') as fin:
         print (fin.read())
     print ('----------------------------------------\n')
-#===============================================================================
-# 
-# def outputOriginalToy():
-#     # print out original fileToUpscale 
-#     print ('Original graph (Gsf=1) is: ')
-#     with open('../data/toyOriginal.txt', 'r') as fin:
-#         print (fin.read())
-#     print ('----------------------------------------\n')  
-#     
-#===============================================================================
 
 
 if __name__ == '__main__':
