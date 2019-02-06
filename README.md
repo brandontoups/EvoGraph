@@ -47,7 +47,7 @@ Once the parent edge and direction have been calculated using h1 and h2, we must
 The reference node of v0 is v4, v1 is v5, and so on. This final calculation of the refernce nodes is the final calculation necessary in determining the edge to be attached. 
 
 
-## Parallel Computation 
+## Loop-Level Parallellism 
 It is possible to multi-process the main for-loop of the algorithm. 
 Why is parallel computing allowed?
 * EvoGraph does not store the currently-upscaling graph in main memory
